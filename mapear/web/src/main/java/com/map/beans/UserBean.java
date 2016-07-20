@@ -32,7 +32,7 @@ public class UserBean implements Serializable{
 	 */
 	private static final long serialVersionUID = -7927820995066852655L;
 	/**
-	 * 
+	 *  
 	 */
 	
 	private User user = new User();
