@@ -11,7 +11,7 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Geolocalization.findAll", query="SELECT g FROM Geolocalization g")
+@Table(name="geolocalization")
 public class Geolocalization implements Serializable {
 	private static final long serialVersionUID = 1L;
 

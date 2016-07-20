@@ -10,7 +10,7 @@ import java.util.Date;
  * 
  */
 @Entity
-@NamedQuery(name="Form.findAll", query="SELECT f FROM Form f")
+@Table(name="form")
 public class Form implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -248,7 +248,7 @@ public class UserBean implements Serializable{
 	public List<Role> getRoleList() {
 		
 		try {
-			roleList = roleAction.findAll();
+			//roleList = roleAction.findAll();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
