@@ -1,0 +1,129 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="head">
+		<script type="text/javascript">
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.title='';
+                this.cfg.seriesColors = ['#FF4081', '#FBB040', '#1C75BC'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#E8E8E8',
+                    shadow: false,
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#778D9B'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    markerOptions: {
+                        shadow: false
+                    }
+                }
+            }
+
+            function skinPie() {
+                this.cfg.seriesColors = ['#dae8ef', '#27aae1', '#33ccff', '#9fadb5'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#eaeaea',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false,
+                    borderWidth: 0
+                };
+                this.cfg.seriesDefaults.shadow = false;
+            }
+
+            function handleMessage(message) {
+                var chatContent = $(PrimeFaces.escapeClientId('pruebaForm:public')),
+                text = (message.userMessage) ? message.userMessage + ':' + message.mesText: message.mesText;
+         
+                chatContent.append(text + '<br />');
+         
+                //keep scroll
+                chatContent.scrollTop(chatContent.height());
+         
+                console.log(text);
+            }
+        </script>
+		<style type="text/css">
+.jqplot-target,.jqplot-axis {
+	color: #778D9B;
+}
+</style>
+	</ui:define>
+	
+	<ui:define name="content">
+		<p:growl id="growl" showDetail="true" />
+		<h:form id="pruebaForm">
+			<div class="Container100">
+	            <div class="ContainerIndent">
+	            	
+	            	<p:fieldset id="container" legend="PrimeChat" toggleable="true">
+	            		<h:panelGroup rendered="#{pruebaBean.loggedIn}">
+	            			<h:panelGrid columns="2" columnClasses="publicColumn,usersColumn" style="width:100%">
+	            				<p:outputPanel id="public" layout="block" styleClass="ui-corner-all ui-widget-content chatlogs" />
+	            				<p:dataTable id="users" var="user"  value="#{pruebaBean.users.users}" >
+	            					<f:facet name="header">
+				                        Usuarios
+				                    </f:facet>
+				                    
+				                    <p:column headerText="Nombre">
+										<h:outputText value="#{user.usrName} #{user.usrLastname} " />
+									</p:column>
+									
+									<p:column headerText="Nickname">
+										<h:outputText value="#{user.usrNickName} " />
+									</p:column>
+									
+									
+									
+				                    
+				                    <p:column headerText="Botón">
+<!-- 					                    <p:commandButton title="Chat" icon="ui-icon-comment" oncomplete="PF('pChat').show()" update=":pruebaForm:privateChatContainer"> -->
+<!-- 					                        <f:setPropertyActionListener value="#{user}" target="#{pruebaBean.privateUser}" /> -->
+<!-- 					                    </p:commandButton> -->
+					                    <p:commandButton icon="fa fa-child Fs16 White" styleClass="BlueTextButton RaisedButton" actionListener="#{pruebaBean.prueba(user)}"/>
+				                    </p:column>
+				                    
+	            				</p:dataTable>
+	            			</h:panelGrid>
+	            			
+	            			<p:inputText value="#{pruebaBean.globalMessage}" styleClass="messageInput"/>
+	            			<p:spacer width="5" />
+				            <p:commandButton value="Send" actionListener="#{pruebaBean.sendGlobal}" oncomplete="$('.messageInput').val('').focus()" />
+				            <p:spacer width="5" />
+				            <p:commandButton value="Disconnect" actionListener="#{pruebaBean.disconnect}" global="false" update="container" />
+	            			
+	            		</h:panelGroup>
+	            		
+	            		<div class="Card ShadowEffect">
+		                	<p:inputText styleClass="Wid90" placeholder="Username" value="#{pruebaBean.username.usrNickName}"/>
+	                        <p:commandButton value="Login" actionListener="#{pruebaBean.login()}"></p:commandButton>
+		                </div>
+		                
+		                <p:dialog widgetVar="pChat" header="Private Chat" modal="true" showEffect="fade" hideEffect="fade">
+					        <h:panelGrid id="privateChatContainer" columns="2" columnClasses="vtop,vtop">
+					            <p:outputLabel for="pChatInput" value="To: #{pruebaBean.sendUser.usrName} #{pruebaBean.sendUser.usrLastname}" />
+					            <p:inputTextarea id="pChatInput" value="#{pruebaBean.privateMessage}" rows="5" cols="30" />
+					 
+					            <p:spacer />
+					            <p:commandButton value="Send" actionListener="#{pruebaBean.sendPrivate}"  />
+					        </h:panelGrid>
+					    </p:dialog>
+	            	</p:fieldset>
+	            </div>
+	        </div>
+        </h:form>
+        
+        <p:socket onMessage="handleMessage" channel="/{room}" autoConnect="false" widgetVar='subscriber' />
+	</ui:define>
+
+</ui:composition>

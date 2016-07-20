@@ -1,0 +1,171 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="head">
+		<script type="text/javascript">
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.title='';
+                this.cfg.seriesColors = ['#FF4081', '#FBB040', '#1C75BC'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#E8E8E8',
+                    shadow: false,
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#778D9B'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    markerOptions: {
+                        shadow: false
+                    }
+                }
+            }
+
+            function skinPie() {
+                this.cfg.seriesColors = ['#dae8ef', '#27aae1', '#33ccff', '#9fadb5'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#eaeaea',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false,
+                    borderWidth: 0
+                };
+                this.cfg.seriesDefaults.shadow = false;
+            }
+        </script>
+		<style type="text/css">
+.jqplot-target,.jqplot-axis {
+	color: #778D9B;
+}
+</style>
+	</ui:define>
+	
+	<ui:define name="content">
+		<h:form id="userForm">
+		<div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect  ">
+                        <div class="ContainerIndent">
+                          	<h2 class="BigTopic">Búsqueda</h2>
+                          	
+                          	<div class="Container60 Responsive50">
+                            <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="FormContent">
+                                <p:inputText styleClass="Wid90" placeholder="Nombre" value="#{userBean.userSearch.usrName}"/>
+                                <p:inputText styleClass="Wid90" placeholder="Apellido" value="#{userBean.userSearch.usrLastname}"/>
+                                
+                            </p:panelGrid>
+                            </div>
+                            <div class="Container40 Responsive50">
+                            <p:panelGrid columns="3" layout="grid" style="border:0px !important; background:none;" styleClass="FormContent">
+								 <p:commandButton value="Buscar"  styleClass="PurpleButton" actionListener="#{userBean.search()}"/>
+								 <p:commandButton value="Limpiar" styleClass="PurpleButton" actionListener="#{userBean.clean()}"/>
+								 <p:commandButton icon="fa fa-child Fs16 White" styleClass="BlueTextButton RaisedButton" onclick="PF('dlg2').show();"/>                                
+                            </p:panelGrid>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                    <p:dataTable id="userTable" var="user" value="#{userBean.userList}">
+
+						<p:column headerText="Nombre">
+							<h:outputText value="#{user.usrName}" />
+						</p:column>
+
+						<p:column headerText="Apellido">
+							<h:outputText value="#{user.usrLastname}" />
+						</p:column>
+
+						<p:column headerText="Email">
+							<h:outputText value="#{user.usrEmail}" />
+						</p:column>
+
+						<p:column headerText="Editar">
+							<center>
+								<p:commandButton icon="fa fa-pencil Fs16 White" styleClass="BlueTextButton RaisedButton"
+									actionListener="#{userBean.edit(user)}"
+									/>
+								<p:commandButton icon="fa fa-trash Fs16 White" styleClass="BlueTextButton RaisedButton"
+									actionListener="#{userBean.delete(user)}"
+									/>
+							</center>
+						</p:column>
+					</p:dataTable>
+					
+					<p:dialog id="insertDialog" header="Usuario"
+					widgetVar="dlg2" height="490" width="500">
+					<p:ajax event="close" listener="#{userBean.handleClose}" />
+					<h:panelGrid columns="2" cellpadding="2" style="margin:0 auto;">
+
+						<h:outputText value="Nickname:" />
+						<p:inputText id="name" value="#{userBean.user.usrNickName}"
+							style="width: 100%;" 
+							/>
+
+						<h:outputText value="Nombre" />
+						<p:inputText value="#{userBean.user.usrName}"
+							style="width: 100%;" />
+
+						<h:outputText value="Apellido:" />
+						<p:inputText value="#{userBean.user.usrLastname}"
+							style="width: 100%;" />
+
+
+						<h:outputText value="Email" />
+						<p:inputText value="#{userBean.user.usrEmail}"
+							style="width: 100%;" />
+
+						<h:outputText value="Rol" />
+						<p:selectOneMenu id="advanced" styleClass="width: 100%;"
+							value="#{userBean.userRole.role}" converter="roleConverter"
+							panelStyle="width:180px" var="t" style="width:160px"
+							>
+							<f:selectItem itemLabel="Seleccione Uno" itemValue="#{null}" />
+							<f:selectItems value="#{userBean.roleList}" var="proj"
+								itemLabel="#{proj.rolName}" itemValue="#{proj}" />
+
+							<p:column>
+								<h:outputText value="#{t.rolName}" />
+							</p:column>
+						</p:selectOneMenu>
+
+						<h:outputText value="Contraseña:" />
+						<p:password id="pwd1" value="#{userBean.passwordWSSH1}"
+							label="Password 1" feedback="true" inline="true"
+							style="width: 100%;" />
+
+						<h:outputLabel for="pwd2" value="Contraseña:" />
+						<p:password id="pwd2" value="#{userBean.passwordWSSH2}"
+							label="Password 2" style="width: 100%;" />
+
+						<p:spacer width="100" height="20" />
+						<p:spacer width="100" height="10" />
+					</h:panelGrid>
+
+					<center>
+						<p:commandButton value="Guardar"
+							actionListener="#{userBean.save()}" />
+					</center>
+
+
+				</p:dialog>
+                </div>
+            </div>
+        </div>
+        </h:form>
+	</ui:define>
+
+</ui:composition>
