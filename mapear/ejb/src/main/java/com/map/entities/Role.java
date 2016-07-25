@@ -83,9 +83,6 @@ public class Role implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + rolId;
-		result = prime * result + ((rolName == null) ? 0 : rolName.hashCode());
-		result = prime * result + ((rolState == null) ? 0 : rolState.hashCode());
-		result = prime * result + ((userRoles == null) ? 0 : userRoles.hashCode());
 		return result;
 	}
 
@@ -100,22 +97,9 @@ public class Role implements Serializable {
 		Role other = (Role) obj;
 		if (rolId != other.rolId)
 			return false;
-		if (rolName == null) {
-			if (other.rolName != null)
-				return false;
-		} else if (!rolName.equals(other.rolName))
-			return false;
-		if (rolState == null) {
-			if (other.rolState != null)
-				return false;
-		} else if (!rolState.equals(other.rolState))
-			return false;
-		if (userRoles == null) {
-			if (other.userRoles != null)
-				return false;
-		} else if (!userRoles.equals(other.userRoles))
-			return false;
 		return true;
 	}
+
+	
 
 }

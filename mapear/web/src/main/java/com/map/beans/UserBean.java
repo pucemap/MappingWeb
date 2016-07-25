@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
+//
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -35,6 +35,9 @@ public class UserBean implements Serializable{
 	 * 
 	 */
 	
+
+	
+	
 	private User user = new User();
 	private User userSearch = new User();
 	private String passwordWSSH1 = new String();
@@ -59,15 +62,16 @@ public class UserBean implements Serializable{
 	@EJB
 	UserRoleEjb userRoleAction;
 	
-	@PostConstruct
-    public void init() {
-		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-		RequestContext requestContext = RequestContext.getCurrentInstance();
-		requestContext.execute("PF('subscriber').connect('/" + ec.getUserPrincipal().getName() + "')");
-    }
+//	@PostConstruct
+//    public void init() {
+//		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+//		RequestContext requestContext = RequestContext.getCurrentInstance();
+//		requestContext.execute("PF('subscriber').connect('/" + ec.getUserPrincipal().getName() + "')");
+//    }
 	
 	
 	public void save(){
+		
 		if(verifyPassword()){
 			if(isNew){
 				try {					
@@ -248,7 +252,7 @@ public class UserBean implements Serializable{
 	public List<Role> getRoleList() {
 		
 		try {
-			//roleList = roleAction.findAll();
+			roleList = roleAction.findAll();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

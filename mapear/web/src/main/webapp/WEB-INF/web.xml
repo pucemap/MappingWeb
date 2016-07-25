@@ -62,6 +62,7 @@
         <param-value>/WEB-INF/primefaces-rio.taglib.xml</param-value>
     </context-param>
     
+    
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -74,7 +75,7 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
-       <mime-mapping>
+    <mime-mapping>
         <extension>ttf</extension>
         <mime-type>application/font-sfnt</mime-type>
     </mime-mapping>

@@ -1,4 +1,3 @@
-
 package com.map.converters;
 
 import javax.faces.application.FacesMessage;
@@ -8,21 +7,21 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
-import com.map.beans.UserBean;
-import com.map.entities.Role;
+import com.map.beans.ChatBean;
+import com.map.entities.UserRole;
 
-@FacesConverter("roleConverter")
-public class RoleConverter implements Converter{
+@FacesConverter("userRoleConverter")
+public class UserRoleConverter implements Converter{
 
 	public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
 		if(value != null && value.trim().length() > 0) {
-			Role car = new Role();
+			UserRole car = new UserRole();
 			try {
-				UserBean service = (UserBean)fc.getExternalContext().getSessionMap().get("userBean");
-				for(Role aux: service.getRoleList())
+				ChatBean service = (ChatBean)fc.getExternalContext().getSessionMap().get("chatBean");
+				for(UserRole aux: service.getUserRoleList())
 				{
 					if(!value.equals("Seleccione Uno")){
-						if(aux.getRolId()==Integer.parseInt(value))
+						if(aux.getUsrRolId()==Integer.parseInt(value))
 							car = aux;
 					}
 					else
@@ -40,7 +39,7 @@ public class RoleConverter implements Converter{
 
 	public String getAsString(FacesContext fc, UIComponent uic, Object object) {
 		if(object != null) {
-			return String.valueOf(((Role) object).getRolId());
+			return String.valueOf(((UserRole) object).getUsrRolId());
 		}
 		else {
 			return null;
