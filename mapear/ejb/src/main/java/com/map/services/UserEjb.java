@@ -26,7 +26,7 @@ public class UserEjb extends GenericDAOImpl<User, Integer>{
 		}
 		else
 		{
-			String query = "SELECT u FROM User u where ";
+			String query = "SELECT u FROM user u where ";
 			if(!usr.getUsrName().equals(new String("")))
 				query+= "u.usrName like '%"+usr.getUsrName()+"%'";
 			else{
@@ -46,7 +46,8 @@ public class UserEjb extends GenericDAOImpl<User, Integer>{
 	public User findByName(String user){
 		User userFinded = new User();
 		List<User> list = new ArrayList<User>();
-		String query = "SELECT u FROM User u where u.usrNickName ='"+user+"'";
+		String query = "SELECT u FROM User u where u.usrNickname like '"+user+"'";
+		
 		try {
 			list = find(query);
 		} catch (Exception e) {
@@ -59,4 +60,29 @@ public class UserEjb extends GenericDAOImpl<User, Integer>{
 		}
 		return userFinded;
 	}
+	
+	public List<User> findByUsrToken(User usr){		
+		List<User> list = new ArrayList<User>();
+		String query = "SELECT u FROM User u where u.usrToken like '%"+usr.getUsrToken()+"%'";
+		try {
+			list=find(query);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+	public List<User> findByLog(){
+		List<User> list = new ArrayList<User>();		
+		String query = "SELECT u FROM User u where u.usrIsLog like '%true%'";		
+		try {
+			list = find(query);
+		} catch (Exception e) {			
+			// TODO Auto-generated catch block
+			e.printStackTrace();			
+		}		
+		return list;
+	}
+	
+	
 }
