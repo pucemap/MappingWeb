@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="head">
+
+		<script type="text/javascript" 
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8uVu7fFpZeFOf6dw3Urcir-k--3p50Q4">
+
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.title='';
+                this.cfg.seriesColors = ['#FF4081', '#FBB040', '#1C75BC'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#E8E8E8',
+                    shadow: false,
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#778D9B'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    markerOptions: {
+                        shadow: false
+                    }
+                }
+            }
+
+            function skinPie() {
+                this.cfg.seriesColors = ['#dae8ef', '#27aae1', '#33ccff', '#9fadb5'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#eaeaea',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false,
+                    borderWidth: 0
+                };
+                this.cfg.seriesDefaults.shadow = false;
+            }
+        </script>
+        
+		<style type="text/css">
+.jqplot-target,.jqplot-axis {
+	color: #778D9B;
+}
+</style>
+	</ui:define>
+	
+	<ui:define name="content">
+	<h:form id="GeoForm">
+		<p:gmap center="-0.22985,-78.52495" zoom="15" type="HYBRID" style="width:100%;height:400px" />
+	</h:form>
+	</ui:define>
+
+</ui:composition>
