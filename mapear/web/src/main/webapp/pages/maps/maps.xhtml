@@ -4,8 +4,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
 
-	<ui:define name="head">
-		<script type="text/javascript">
+<ui:define name="head">
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8uVu7fFpZeFOf6dw3Urcir-k--3p50Q4" type="text/javascript">
             function skinChart() {
                 this.cfg.shadow = false;
                 this.cfg.title='';
@@ -49,9 +49,9 @@
 	</ui:define>
 	
 	<ui:define name="content">
-		<h:form id="userForm">
-		
-        </h:form>
+	
+	<p:gmap center="41.381542, 2.122893" zoom="15" type="HYBRID" style="width:600px;height:400px" />
+	
 	</ui:define>
-
+      
 </ui:composition>

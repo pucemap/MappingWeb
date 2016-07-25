@@ -58,15 +58,15 @@
                           	
                           	<div class="Container60 Responsive50">
                             <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="FormContent">
-                                <p:inputText id="enterpriseSearchInput" styleClass="Wid90" placeholder="Empresa" value="#{enterpriseBean.enterpriseSearch.entName}"/>
-                                <!-- <p:inputText styleClass="Wid90" placeholder="Apellido" value="#{userBean.userSearch.usrLastname}"/> -->
+                               <p:inputText id="enterpriseSearchInput" styleClass="Wid90" placeholder="Empresa" value="#{EnterpriseBean.enterpriseSearch.entName}"/>  
+                                
                                 
                             </p:panelGrid>
                             </div>
                             <div class="Container40 Responsive50">
                             <p:panelGrid columns="3" layout="grid" style="border:0px !important; background:none;" styleClass="FormContent">
-								 <p:commandButton value="Buscar"  styleClass="PurpleButton" actionListener="#{enterpriseBean.search()}"/>
-								 <p:commandButton value="Limpiar" styleClass="PurpleButton" actionListener="#{enterpriseBean.clean()}"/>
+								 <p:commandButton value="Buscar"  styleClass="PurpleButton" actionListener="#{EnterpriseBean.search()}"/>
+								 <p:commandButton value="Limpiar" styleClass="PurpleButton" actionListener="#{EnterpriseBean.clean()}"/>
 								 <p:commandButton icon="fa fa-child Fs16 White" styleClass="BlueTextButton RaisedButton" onclick="PF('dlg2').show();"/>                                
                             </p:panelGrid>
                             </div>
@@ -79,7 +79,7 @@
         <div class="Container100">
             <div class="ContainerIndent">
                 <div class="Card ShadowEffect">
-                    <p:dataTable id="enterpriseTable" var="enter" value="#{enterpriseBean.enterpriseList}">
+                    <p:dataTable id="enterpriseTable" var="enter" value="#{EnterpriseBean.enterpriseList}">
 
 						<p:column headerText="Empresa">
 							<h:outputText value="#{enter.entName}" />
@@ -92,10 +92,10 @@
 						<p:column headerText="Editar">
 							<center>
 								<p:commandButton icon="fa fa-pencil Fs16 White" styleClass="BlueTextButton RaisedButton"
-									actionListener="#{enterpriseBean.edit(enter)}"
+									actionListener="#{EnterpriseBean.edit(enter)}"
 									/>
 								<p:commandButton icon="fa fa-trash Fs16 White" styleClass="BlueTextButton RaisedButton"
-									actionListener="#{enterpriseBean.delete(enter)}"
+									actionListener="#{EnterpriseBean.delete(enter)}"
 									/>
 							</center>
 						</p:column>
@@ -103,16 +103,16 @@
 					
 					<p:dialog id="insertDialog" header="Empresa"
 					widgetVar="dlg2" height="490" width="500">
-					<p:ajax event="close" listener="#{enterpriseBean.handleClose}" />
+					<p:ajax event="close" listener="#{EnterpriseBean.handleClose}" />
 					<h:panelGrid columns="2" cellpadding="2" style="margin:0 auto;">
 
 						<h:outputText value="Empresa:" />
-						<p:inputText id="name" value="#{enterpriseBean.enterprise.entName}"
+						<p:inputText id="name" value="#{EnterpriseBean.enterprise.entName}"
 							style="width: 100%;" 
 							/>
 
 						<h:outputText value="Descricipción" />
-						<p:inputText value="#{enterpriseBean.enterprise.entDescription}"
+						<p:inputText value="#{EnterpriseBean.enterprise.entDescription}"
 							style="width: 100%;" />
 
 						
@@ -131,7 +131,7 @@
 
 					<center>
 						<p:commandButton value="Guardar"
-							actionListener="#{enterpriseBean.save()}" />
+							actionListener="#{EnterpriseBean.save()}" />
 					</center>
 
 
