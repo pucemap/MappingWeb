@@ -1,0 +1,145 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="head">
+		<script type="text/javascript">
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.title='';
+                this.cfg.seriesColors = ['#FF4081', '#FBB040', '#1C75BC'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#E8E8E8',
+                    shadow: false,
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#778D9B'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    markerOptions: {
+                        shadow: false
+                    }
+                }
+            }
+
+            function skinPie() {
+                this.cfg.seriesColors = ['#dae8ef', '#27aae1', '#33ccff', '#9fadb5'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#eaeaea',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false,
+                    borderWidth: 0
+                };
+                this.cfg.seriesDefaults.shadow = false;
+            }
+        </script>
+		<style type="text/css">
+.jqplot-target,.jqplot-axis {
+	color: #778D9B;
+}
+</style>
+	</ui:define>
+	
+	<ui:define name="content">
+		<h:form id="enterpriseForm">
+		<div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect  ">
+                        <div class="ContainerIndent">
+                          	<h2 class="BigTopic">Busqueda</h2>
+                          	
+                          	<div class="Container60 Responsive50">
+                            <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="FormContent">
+                                <p:inputText id="enterpriseSearchInput" styleClass="Wid90" placeholder="Empresa" value="#{enterpriseBean.enterpriseSearch.entName}"/>
+                                <!-- <p:inputText styleClass="Wid90" placeholder="Apellido" value="#{userBean.userSearch.usrLastname}"/> -->
+                                
+                            </p:panelGrid>
+                            </div>
+                            <div class="Container40 Responsive50">
+                            <p:panelGrid columns="3" layout="grid" style="border:0px !important; background:none;" styleClass="FormContent">
+								 <p:commandButton value="Buscar"  styleClass="PurpleButton" actionListener="#{enterpriseBean.search()}"/>
+								 <p:commandButton value="Limpiar" styleClass="PurpleButton" actionListener="#{enterpriseBean.clean()}"/>
+								 <p:commandButton icon="fa fa-child Fs16 White" styleClass="BlueTextButton RaisedButton" onclick="PF('dlg2').show();"/>                                
+                            </p:panelGrid>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                    <p:dataTable id="enterpriseTable" var="enter" value="#{enterpriseBean.enterpriseList}">
+
+						<p:column headerText="Empresa">
+							<h:outputText value="#{enter.entName}" />
+						</p:column>
+
+						<p:column headerText="Descripción">
+							<h:outputText value="#{enter.entDescription}" />
+						</p:column>
+
+						<p:column headerText="Editar">
+							<center>
+								<p:commandButton icon="fa fa-pencil Fs16 White" styleClass="BlueTextButton RaisedButton"
+									actionListener="#{enterpriseBean.edit(enter)}"
+									/>
+								<p:commandButton icon="fa fa-trash Fs16 White" styleClass="BlueTextButton RaisedButton"
+									actionListener="#{enterpriseBean.delete(enter)}"
+									/>
+							</center>
+						</p:column>
+					</p:dataTable>
+					
+					<p:dialog id="insertDialog" header="Empresa"
+					widgetVar="dlg2" height="490" width="500">
+					<p:ajax event="close" listener="#{enterpriseBean.handleClose}" />
+					<h:panelGrid columns="2" cellpadding="2" style="margin:0 auto;">
+
+						<h:outputText value="Empresa:" />
+						<p:inputText id="name" value="#{enterpriseBean.enterprise.entName}"
+							style="width: 100%;" 
+							/>
+
+						<h:outputText value="Descricipción" />
+						<p:inputText value="#{enterpriseBean.enterprise.entDescription}"
+							style="width: 100%;" />
+
+						
+							<f:selectItem itemLabel="Seleccione Uno" itemValue="#{null}" />
+							
+							<p:column>
+								
+							</p:column>
+						
+						
+
+						
+						<p:spacer width="100" height="20" />
+						<p:spacer width="100" height="10" />
+					</h:panelGrid>
+
+					<center>
+						<p:commandButton value="Guardar"
+							actionListener="#{enterpriseBean.save()}" />
+					</center>
+
+
+				</p:dialog>
+                </div>
+            </div>
+        </div>
+        </h:form>
+	</ui:define>
+
+</ui:composition>
