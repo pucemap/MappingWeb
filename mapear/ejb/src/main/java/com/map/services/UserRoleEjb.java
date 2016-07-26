@@ -50,4 +50,26 @@ public class UserRoleEjb extends GenericDAOImpl<UserRole, Integer>{
 		
 		return list;
 	}
+	
+	public List<User> findUsers(){
+		
+		List<UserRole> list = new ArrayList<UserRole>();
+		List<User> listUsers = new ArrayList<User>();
+		
+		String query = "SELECT u FROM UserRole u where u.role.rolName ='"+"Android"+"'";
+		try {
+			list = find(query);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for (UserRole aux : list) {
+			listUsers.add(aux.getUser());
+		}
+		
+		
+		
+		return listUsers;
+	}
 }
