@@ -39,7 +39,7 @@
       </license>
    </licenses>
    
-<<<<<<< HEAD
+
    	<repositories>
 		<repository>
 			<id>prime-repo</id>
@@ -48,17 +48,6 @@
 			<layout>default</layout>
 		</repository>
 	</repositories>
-=======
-   <repositories>
-		<repository>
-			<id>prime-repo</id>
-			<name>PrimeFaces Maven Repository</name>
-			<url>http://repository.primefaces.org</url>
-			<layout>default</layout>
-		</repository>
-	</repositories>
-   
->>>>>>> refs/heads/Test
 
    <dependencies>
 
