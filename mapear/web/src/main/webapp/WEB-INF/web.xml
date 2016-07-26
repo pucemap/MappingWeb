@@ -34,7 +34,7 @@
 	<login-config>
 		<auth-method>FORM</auth-method>
 		<form-login-config>
-			<form-login-page>/login.xhtml</form-login-page>
+			<form-login-page>/pages/geolocation/geolocation.xhtml</form-login-page>
 			<form-error-page>/access-denied.xhtml</form-error-page>
 		</form-login-config>
 	</login-config>
