@@ -55,6 +55,16 @@ public class GeoBean implements Serializable{
     @PostConstruct
     public void init() {
         emptyModel = new DefaultMapModel();
+        try {
+			geoList = geoAction.findAll();
+			for (Geolocalization geolocalization : geoList) {
+				
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
 	public MapModel getEmptyModel() {
