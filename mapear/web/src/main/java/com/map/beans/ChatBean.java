@@ -43,5 +43,11 @@ public class ChatBean implements Serializable{
 		this.userRole = userRole;
 	}
 	
+	@SuppressWarnings("deprecation")
+	public void onAppointmentTypeChange(){
+		System.out.println("entro");
+		
+	}
+	
 
 }

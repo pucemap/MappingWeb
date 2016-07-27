@@ -419,8 +419,9 @@ body {
 			     	<div class="ui">
 		<div class="left-menu">
 			<p:selectOneListbox style="height:100% !important;width:300px !important" id="advanced" value="#{chatBean.userRole}" converter="userRoleConverter" var="t" filter="true" filterMatchMode="contains">
+					            <p:ajax listener="#{chatBean.onAppointmentTypeChange}" />
 					            <f:selectItems value="#{chatBean.userRoleList}" var="theme" itemLabel="#{theme.user.usrName}" itemValue="#{theme}" />
-					 
+					 			
 					            
 					            <p:column>
 					                <h:outputText value="#{t.user.usrName}" />
