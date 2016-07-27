@@ -7,6 +7,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import com.map.entities.UserRole;
 import com.map.services.UserRoleEjb;
@@ -22,7 +24,7 @@ public class ChatBean implements Serializable{
 	
 	private List<UserRole> userRoleList = new ArrayList<UserRole>();
 	private UserRole userRole = new UserRole();
-	
+	private UserRole persona = new UserRole();
 	@EJB
 	UserRoleEjb userRoleAction;
 
@@ -43,5 +45,16 @@ public class ChatBean implements Serializable{
 		this.userRole = userRole;
 	}
 	
+	@SuppressWarnings("deprecation")
+    public void onAppointmentTypeChange(){
+           persona = userRole;
+    }
 
+	public UserRole getPersona() {
+		return persona;
+	}
+
+	public void setPersona(UserRole persona) {
+		this.persona = persona;
+	}
 }
