@@ -9,7 +9,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
@@ -20,7 +19,6 @@ import org.primefaces.model.map.Marker;
 
 import com.map.entities.Geolocalization;
 import com.map.entities.User;
-import com.map.entities.UserRole;
 import com.map.services.GeolocalizationEjb;
 import com.map.services.UserRoleEjb;
 
@@ -57,8 +55,10 @@ public class GeoBean implements Serializable{
         emptyModel = new DefaultMapModel();
         try {
 			geoList = geoAction.findAll();
-			for (Geolocalization geolocalization : geoList) {
+			for (Geolocalization aux : geoList) {
+				//LatLng coord1 = new LatLng(aux.getGeoLatitude().doubleValue(),aux.getGeoLenght().doubleValue());
 				
+				emptyModel.addOverlay(new Marker(new LatLng(aux.getGeoLatitude().doubleValue(),aux.getGeoLenght().doubleValue()),aux.getUser().getUsrName()));
 			}
 			
 		} catch (Exception e) {

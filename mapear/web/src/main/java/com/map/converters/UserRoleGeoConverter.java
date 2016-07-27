@@ -9,10 +9,8 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
-import com.map.beans.ChatBean;
 import com.map.beans.GeoBean;
 import com.map.entities.User;
-import com.map.entities.UserRole;
 
 @FacesConverter("userConverter")
 public class UserRoleGeoConverter implements Converter{
