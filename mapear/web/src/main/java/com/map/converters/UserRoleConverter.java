@@ -15,9 +15,12 @@ public class UserRoleConverter implements Converter{
 
 	public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
 		if(value != null && value.trim().length() > 0) {
+			
 			UserRole car = new UserRole();
 			try {
+				
 				ChatBean service = (ChatBean)fc.getExternalContext().getSessionMap().get("chatBean");
+				
 				for(UserRole aux: service.getUserRoleList())
 				{
 					if(!value.equals("Seleccione Uno")){

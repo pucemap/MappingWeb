@@ -43,9 +43,18 @@ public class Message implements Serializable {
 	@JoinColumn(name="USR_ID_SENDER")
 	private User user2;
 
-	public Message() {
+	public Message(Date mesReceivedDate,Date mesSendDate,String mesState,String mesText,User user1,User user2) {
+		this.mesReceivedDate = mesReceivedDate;
+		this.mesSendDate = mesSendDate;
+		this.mesState = mesState;
+		this.mesText = mesText;	
+		this.user1 = user1;
+		this.user2 = user2;
 	}
 
+	public Message( ){
+		
+	}
 	public int getMesId() {
 		return this.mesId;
 	}

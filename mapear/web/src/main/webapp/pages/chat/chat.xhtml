@@ -5,102 +5,9 @@
 	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
 
 	<ui:define name="head">
-		<script type="text/javascript">
-            function skinChart() {
-                this.cfg.shadow = false;
-                this.cfg.title='';
-                this.cfg.seriesColors = ['#FF4081', '#FBB040', '#1C75BC'];
-                this.cfg.grid = {
-                    background: '#ffffff',
-                    borderColor: '#ffffff',
-                    gridLineColor: '#E8E8E8',
-                    shadow: false,
-                };
-                this.cfg.axesDefaults = {
-                    rendererOptions: {
-                        textColor: '#778D9B'
-                    }
-                };
-                this.cfg.seriesDefaults = {
-                    shadow: false,
-                    markerOptions: {
-                        shadow: false
-                    }
-                }
-            }
 
-            function skinPie() {
-                this.cfg.seriesColors = ['#dae8ef', '#27aae1', '#33ccff', '#9fadb5'];
-                this.cfg.grid = {
-                    background: '#ffffff',
-                    borderColor: '#eaeaea',
-                    gridLineColor: '#e5ebf0',
-                    shadow: false,
-                    borderWidth: 0
-                };
-                this.cfg.seriesDefaults.shadow = false;
-            }
 
-            (function() {
-            	  var NYLM, claerResizeScroll, conf, getRandomInt, insertI, lol;
 
-            	  conf = {
-            	    cursorcolor: "#696c75",
-            	    cursorwidth: "4px",
-            	    cursorborder: "none"
-            	  };
-
-            	  lol = {
-            	    cursorcolor: "#cdd2d6",
-            	    cursorwidth: "4px",
-            	    cursorborder: "none"
-            	  };
-
-            	  NYLM = ["Уходи дверь закрой", "У меня теперь другой", "Все для тебя", "Мне не нужен больше твой номер в книжке записной", "Владимирский централ, ветер сука", "Ты ушол, а я текла", "Ты пришол в красный день календаря", "бла бла", ")", "умри", "ой все.", "ой все.", "ой все.", "Ты говоришь ТОЧНЕЕ пишешьСя сам с собой"];
-
-            	  getRandomInt = function(min, max) {
-            	    return Math.floor(Math.random() * (max - min + 1)) + min;
-            	  };
-
-            	  claerResizeScroll = function() {
-            	    $("#texxt").val("");
-            	    $(".messages").getNiceScroll(0).resize();
-            	    return $(".messages").getNiceScroll(0).doScrollTop(999999, 999);
-            	  };
-
-            	  insertI = function() {
-            	    var innerText, otvet;
-            	    innerText = $.trim($("#texxt").val());
-            	    if (innerText !== "") {
-            	      $(".messages").append("<li class='i'><div class='head'><span class='time'>" + (new Date().getHours()) + ":" + (new Date().getMinutes()) + " AM, Today</span><span class='name'> Буль</span></div><div class='message'>" + innerText + "</div></li>");
-            	      claerResizeScroll();
-            	      return otvet = setInterval(function() {
-            	        $(".messages").append("<li class='friend-with-a-SVAGina'><div class='head'><span class='name'>Юния  </span><span class='time'>" + (new Date().getHours()) + ":" + (new Date().getMinutes()) + " AM, Today</span></div><div class='message'>" + NYLM[getRandomInt(0, NYLM.length - 1)] + "</div></li>");
-            	        claerResizeScroll();
-            	        return clearInterval(otvet);
-            	      }, getRandomInt(2500, 500));
-            	    }
-            	  };
-
-            	  $(document).ready(function() {
-            	    $(".list-friends").niceScroll(conf);
-            	    $(".messages").niceScroll(lol);
-            	    $("#texxt").keypress(function(e) {
-            	      if (e.keyCode === 13) {
-            	        insertI();
-            	        return false;
-            	      }
-            	    });
-            	    return $(".send").click(function() {
-            	      return insertI();
-            	    });
-            	  });
-
-            	}).call(this);
-            
-        </script>
-           <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='http://cdnjs.cloudflare.com/ajax/libs/nicescroll/3.5.4/jquery.nicescroll.js'></script>
 		<style type="text/css">
 .jqplot-target, .jqplot-axis {
 	color: #778D9B;
@@ -130,8 +37,8 @@ body {
 
 .ui {
 	margin: 10px auto;
-	width: 1000px;
-	height: 700px;
+	width: 1100px;
+	height: 800px;
 	background-color: #fff;
 	border-radius: 3px;
 	box-shadow: 0 0 25px #3a9fc4;
@@ -176,7 +83,7 @@ body {
 }
 
 .ui .left-menu {
-	width: 29% !important;
+	width: 26% !important;
 	box-sizing: content-box !important;
 	padding-right: 1% !important;
 	height: 100% !important;
@@ -184,7 +91,7 @@ body {
 }
 
 .ui .chat {
-	width: 70%;
+	width: 80%;
 	height: 100%;
 	background: #f1f5f8;
 }
@@ -425,7 +332,7 @@ body {
 }
 
 .ui .send {
-	color: #7ac5ef;
+	color: #fff;
 	text-transform: uppercase;
 	font-weight: 700;
 	float: right;
@@ -461,11 +368,21 @@ body {
 	resize: none;
 	background-color: #fff !important;
 }
+
+.ui-scrollpanel {
+     border: solid 0px #fff; 
+    }
+
 </style>
 	</ui:define>
 
 	<ui:define name="content">
+	<h:outputScript library="js" name="test.js" target="body" />
 		<h:form id="chatForm">
+		
+
+		
+			
 			<div class="ui">
 				<div class="left-menu">
 					<p:selectOneListbox
@@ -477,47 +394,61 @@ body {
 						<f:selectItems value="#{chatBean.userRoleList}" var="theme"
 							itemLabel="#{theme.user.usrName}" itemValue="#{theme}" />
 						<p:column>
-							<h:outputText value="#{t.user.usrName}#{t.user.usrLastname}" />
+							<h:outputText value="#{t.user.usrName} #{t.user.usrLastname}" />
 						</p:column>
 					</p:selectOneListbox>
 				</div>
+				
+				
 				<div class="chat">
 					<div class="top">
 						<div class="avatar">
+							
 							<img width="50" height="50"
 								src="http://cs625730.vk.me/v625730358/1126a/qEjM1AnybRA.jpg" />
 						</div>
 						<div class="info">
-							<div class="name">"#{chatBean.userRole.user.usrName}"</div>
-							<div class="count">already 1 902 messages</div>
+							<div class="name">#{chatBean.userRole.user.usrName} #{chatBean.userRole.user.usrLastname}</div>
+							<div class="count">#{chatBean.userRole.user.usrEmail}</div>
 						</div>
 						<i class="fa fa-star"></i>
 					</div>
-					<ul class="messages">
-						<li class="i">
-							<div class="head">
-								<span class="time">10:13 AM, Today</span> <span class="name">Буль</span>
-							</div>
-							<div class="message">Привет!</div>
-						</li>
-						<li class="i">
-							<div class="head">
-								<span class="time">10:13 AM, Today</span> <span class="name">Буль</span>
-							</div>
-							<div class="message">)</div>
-						</li>
-						<li class="i">
-							<div class="head">
-								<span class="time">10:14 AM, Today</span> <span class="name">Буль</span>
-							</div>
-							<div class="message">М не счастья..</div>
-						</li>
 
-					</ul>
+
+					<p:scrollPanel id="scroll" style="width:100%;height:70%">
+						<ul class="messages" id="test">
+							<ui:repeat value="#{chatBean.lista}" var="user">
+
+								<h:panelGroup
+									rendered="#{chatBean.persona.user.usrId==user.user2.usrId and chatBean.user.usrId==user.user1.usrId}">
+									<li class="i">
+										<div class="head">
+											<span class="time">#{user.mesSendDate}</span> <span
+												class="name">#{chatBean.persona.user.usrName}
+												#{chatBean.persona.user.usrLastname}</span>
+										</div>
+										<div class="message">#{user.mesText}</div>
+									</li>
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{chatBean.persona.user.usrId==user.user1.usrId and chatBean.user.usrId==user.user2.usrId}">
+									<li class="friend-with-a-SVAGina">
+										<div class="head">
+											<span class="name">#{chatBean.user.usrName}
+												#{chatBean.user.usrLastname}</span> <span class="time">#{user.mesSendDate}</span>
+										</div>
+										<div class="message">#{user.mesText}</div>
+									</li>
+								</h:panelGroup>
+							</ui:repeat>
+						</ul>
+					</p:scrollPanel>
+					
 					<div class="write-form">
-						<p:inputTextarea styleClass="Container75 Responsive100" id="area" />
-
-						<p:button styleClass="send" icon="fa fa-send Fs16 White" />
+						<p:inputTextarea styleClass="Container75 Responsive100" id="area" autoResize="false" value="#{chatBean.messageText}"/>
+						<p:commandButton styleClass="send" value="ENVIAR" actionListener="#{chatBean.send()}"></p:commandButton>
+						
+						
 					</div>
 				</div>
 			</div>
