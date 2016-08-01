@@ -52,6 +52,7 @@ public class ChatConnectionBean implements GcmInterface {
 	}
 
 	public ChatConnectionBean() {
+		
 	};
 
 	public ChatConnectionBean(Test myTask) {
@@ -79,7 +80,7 @@ public class ChatConnectionBean implements GcmInterface {
 		try {
 			json.putAll(payload);
 			new downStreamMessageBean().sendDownstreamMessage(messageT, getConnectionDraining());
-			myTask.showMessage(Message, false);
+			//myTask.showMessage(Message, false);
 
 		} catch (NotConnectedException e) {
 			// TODO Auto-generated catch block
@@ -97,44 +98,44 @@ public class ChatConnectionBean implements GcmInterface {
 		return connectionDraining;
 	}
 
-	public void saveMessage(Map<String, Object> json, boolean typeMessage) {
-		User user = new User();
-		Date sendDate = new Date();
-		Date receiveDate = new Date();
-		user.setUsrId(Integer.parseInt(json.get("senderID").toString()));
-		user = userAction.findByUsrToken(user).get(0);
-		User receiver = new User();
-		receiver.setUsrId(Integer.parseInt(json.get("receiverID").toString()));
-		receiver = userAction.findByUsrToken(receiver).get(0);
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.YEAR, Integer.parseInt(json.get("sentDate").toString().substring(0, 4)));
-		cal.set(Calendar.MONTH, Integer.parseInt(json.get("sentDate").toString().substring(5, 7)));
-		cal.set(Calendar.DAY_OF_MONTH, Integer
-				.parseInt(json.get("sentDate").toString().substring(8, json.get("sentDate").toString().length())));
-
-		sendDate = cal.getTime();
-
-		if (typeMessage)/*
-						 * true si es mensaje de llegada al servidor false si
-						 * elservidor envia un mensaje
-						 */ {
-			messagerecieved = json.get("data").toString();
-		} else {
-			messagesend = json.get("Message").toString();
-		}
-		message.setUser2(user);
-		message.setUser1(receiver);
-		message.setMesText(json.get("messageText").toString());
-		message.setMesSendDate(sendDate);
-		message.setMesReceivedDate(receiveDate);
-		message.setMesState("");
-		try {
-			messageAction.persist(message);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public void saveMessage(Map<String, Object> json, boolean typeMessage) {
+//		User user = new User();
+//		Date sendDate = new Date();
+//		Date receiveDate = new Date();
+//		user.setUsrId(Integer.parseInt(json.get("senderID").toString()));
+//		user = userAction.findByUsrToken(user).get(0);
+//		User receiver = new User();
+//		receiver.setUsrId(Integer.parseInt(json.get("receiverID").toString()));
+//		receiver = userAction.findByUsrToken(receiver).get(0);
+//		Calendar cal = Calendar.getInstance();
+//		cal.set(Calendar.YEAR, Integer.parseInt(json.get("sentDate").toString().substring(0, 4)));
+//		cal.set(Calendar.MONTH, Integer.parseInt(json.get("sentDate").toString().substring(5, 7)));
+//		cal.set(Calendar.DAY_OF_MONTH, Integer
+//				.parseInt(json.get("sentDate").toString().substring(8, json.get("sentDate").toString().length())));
+//
+//		sendDate = cal.getTime();
+//
+//		if (typeMessage)/*
+//						 * true si es mensaje de llegada al servidor false si
+//						 * elservidor envia un mensaje
+//						 */ {
+//			messagerecieved = json.get("data").toString();
+//		} else {
+//			messagesend = json.get("Message").toString();
+//		}
+//		message.setUser2(user);
+//		message.setUser1(receiver);
+//		message.setMesText(json.get("messageText").toString());
+//		message.setMesSendDate(sendDate);
+//		message.setMesReceivedDate(receiveDate);
+//		message.setMesState("");
+//		try {
+//			messageAction.persist(message);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 	public void connect(String senderId, String apiKey) throws XMPPException, IOException, SmackException {
 		XMPPTCPConnectionConfiguration config = XMPPTCPConnectionConfiguration.builder().setServiceName(GCM_SERVER)

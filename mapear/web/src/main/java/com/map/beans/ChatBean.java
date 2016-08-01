@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -19,6 +21,8 @@ import org.primefaces.push.EventBusFactory;
 import com.map.entities.Message;
 import com.map.entities.User;
 import com.map.entities.UserRole;
+import com.map.gcm.ChatConnectionBean;
+import com.map.gcm.eventBusApp;
 import com.map.services.MessageEjb;
 import com.map.services.UserEjb;
 import com.map.services.UserRoleEjb;
@@ -34,10 +38,12 @@ public class ChatBean implements Serializable{
 	
 	
 	private User user = new User();
+	ChatConnectionBean connection = new ChatConnectionBean();
 	private UserRole userRole = new UserRole();
 	private UserRole persona = new UserRole();
 	private Message message = new Message();
 	private String messageText = new String();
+	private String messagearrived = new String();
 	private List<Message> lista = new ArrayList<Message>();
 	private List<UserRole> userRoleList = new ArrayList<UserRole>();
 	RequestContext RC;
@@ -68,6 +74,8 @@ public class ChatBean implements Serializable{
 	}
 	
 	public void send(){
+		RC = RequestContext.getCurrentInstance();		
+		connection.sendMessage(messageText, connection.nextMessageId(),user.getUsrName());
 		Date date = new Date(System.currentTimeMillis());
 	    //SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");	       
 		message = new Message(date, date, "S", messageText, persona.getUser(), user);
@@ -75,15 +83,38 @@ public class ChatBean implements Serializable{
 		try {
 			messageAction.persist(message);
 			message = new Message();
+			messageText = new String();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		findMessages();
-		RequestContext.getCurrentInstance().update("chatForm:area");
+		RequestContext.getCurrentInstance().update("chatForm:area");		
 		RequestContext.getCurrentInstance().update("chatForm:scroll");
-		
+		}
+	
+	
+	
+	
+	public void showMessages() {
+
+		connection = new ChatConnectionBean(letMeKnow);
+
 	}
+
+private ChatConnectionBean.Test letMeKnow = new ChatConnectionBean.Test() {
+
+		@Override
+		public void showMessage(String a, boolean x) {
+			
+			messagearrived = a;
+			Map<String, Object> data = new HashMap<String, Object>();
+			data.put("Message", a);
+			data.put("Type", x);
+			new eventBusApp().showMessage(data);			
+		}
+	};	
+	
 	
 	public List<UserRole> getUserRoleList() {
 		userRoleList = userRoleAction.findByUserRole();

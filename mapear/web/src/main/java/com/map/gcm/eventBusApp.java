@@ -16,6 +16,6 @@ public class eventBusApp {
 	
 	public void showMessage(Map<String, Object> message){
 		EventBus eventBus = EventBusFactory.getDefault().eventBus();
-		eventBus.publish("/topbar",message.toString());		
+		eventBus.publish("/counter",message.toString());		
 	}
 }
