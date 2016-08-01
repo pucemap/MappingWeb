@@ -13,6 +13,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.push.EventBus;
+import org.primefaces.push.EventBusFactory;
 
 import com.map.entities.Message;
 import com.map.entities.User;
@@ -53,6 +55,7 @@ public class ChatBean implements Serializable{
 	@SuppressWarnings("deprecation")
 	public void onAppointmentTypeChange() {
 		findMessages();
+		System.out.println("entro");
 	}
 	
 	public void findMessages(){
@@ -72,7 +75,6 @@ public class ChatBean implements Serializable{
 		try {
 			messageAction.persist(message);
 			message = new Message();
-			messageText = new String();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -141,4 +143,24 @@ public class ChatBean implements Serializable{
 	public void setMessageText(String messageText) {
 		this.messageText = messageText;
 	}
+	
+	
+	///
+	private volatile int count;
+	 
+    public int getCount() {
+        return count;
+    }
+ 
+    public void setCount(int count) {
+        this.count = count;
+    }
+     
+    public void increment() {
+    	findMessages();
+        count++;
+         
+        EventBus eventBus = EventBusFactory.getDefault().eventBus();
+        eventBus.publish("/counter", String.valueOf(count));
+    }
 }

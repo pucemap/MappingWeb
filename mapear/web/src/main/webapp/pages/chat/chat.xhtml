@@ -415,8 +415,9 @@ body {
 					</div>
 
 
-					<p:scrollPanel id="scroll" style="width:100%;height:70%">
-						<ul class="messages" id="test">
+					<p:scrollPanel  id="scroll"  style="width:100%;height:70%" >
+							
+						<ul class="messages" id="mes">
 							<ui:repeat value="#{chatBean.lista}" var="user">
 
 								<h:panelGroup
@@ -452,7 +453,28 @@ body {
 					</div>
 				</div>
 			</div>
+			
+			 
+			 <p:outputPanel id="public" layout="block" styleClass="ui-corner-all ui-widget-content chatlogs" />
+ 
+    <p:commandButton value="Click" actionListener="#{chatBean.increment}" />
+			
 		</h:form>
+<!-- 		<span id="myspan"> hereismytext </span> -->
+		
+		
+		<p:socket onMessage="handleMessage" channel="/counter">
+			
+		</p:socket>
+ 
+		<script type="text/javascript">
+		    function handleMessage(data) {
+		    
+				
+// 		    	$('#mes').append('<h:panelGroup rendered='#{chatBean.persona.user.usrId==user.user2.usrId and chatBean.user.usrId==user.user1.usrId}'><li class='i'><div class='head'><span class='name'>diego</span></div> <div class='message'>mensaje</div></li></h:panelGroup>');
+		    }
+		</script>
+		
 	</ui:define>
 
 </ui:composition>
