@@ -18,6 +18,8 @@ import org.primefaces.event.CloseEvent;
 import com.map.entities.Role;
 import com.map.entities.User;
 import com.map.entities.UserRole;
+import com.map.resources.CodeGenerator;
+import com.map.resources.SenderEmails;
 import com.map.services.RoleEjb;
 import com.map.services.UserEjb;
 import com.map.services.UserRoleEjb;
@@ -70,21 +72,25 @@ public class UserBean implements Serializable{
 //    }
 	
 	
+	
 	public void save(){
 		
 		if(verifyPassword()){
 			if(isNew){
-				try {					
+				try {
+					if(userRole.getRole().getRolName().equals("Android")||userRole.getRole().getRolName().equals("Ios"))
+						user.setUsrRegistrationCode(CodeGenerator.generate());
 					user.setUsrPassword(sha.encrypt(passwordWSSH1));
-					user.setUsrState("C");;
+					user.setUsrState("F");
 					user.setUsrCreationDate(cal.getTime());
 					userAction.persist(user);
 					userRole.setUser(user);
 					userRole.setUsrRolCreationDate(cal.getTime());
 					userRole.setUsrRolState("C");
-					userRoleAction.persist(userRole);
+					userRoleAction.persist(userRole);					
 					user = new User();
 					userRole = new UserRole();
+					
 					RequestContext.getCurrentInstance().update("userForm:insertDialog");
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -135,6 +141,7 @@ public class UserBean implements Serializable{
 	}
 	
 	public void search(){
+		
 		try {
 			userList = userAction.findByUserName(userSearch);
 			RequestContext.getCurrentInstance().update("userForm:userTable");

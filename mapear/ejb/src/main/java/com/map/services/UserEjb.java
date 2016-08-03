@@ -84,5 +84,22 @@ public class UserEjb extends GenericDAOImpl<User, Integer>{
 		return list;
 	}
 	
+	public User findByTokenAndEmail(String email,String token){
+		List<User> list = new ArrayList<User>();		
+		User usr = new User();
+		String query = "SELECT u FROM User u where u.usrRegistrationCode like '%"+token+"%' and u.usrEmail like '%"+email+"%'";	
+		try {
+			list = find(query);
+		} catch (Exception e) {			
+			// TODO Auto-generated catch block
+			e.printStackTrace();			
+		}		
+		
+		for (User user : list) {
+			usr = user;
+		}
+		
+		return usr;
+	}
 	
 }

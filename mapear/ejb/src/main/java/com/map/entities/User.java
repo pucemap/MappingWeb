@@ -2,6 +2,11 @@ package com.map.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -13,67 +18,86 @@ import java.util.List;
  */
 @Entity
 @Table(name="user")
+
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="USR_ID")
+	@JsonProperty("usrId")
 	private int usrId;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="USR_CREATION_DATE")
+	@JsonProperty("usrId")
 	private Date usrCreationDate;
 
 	@Column(name="USR_EMAIL")
+	@JsonProperty("usrEmail")
 	private String usrEmail;
 
 	@Column(name="USR_IS_LOG")
+	@JsonProperty("usrIsLog")
 	private String usrIsLog;
 
 	@Column(name="USR_LASTNAME")
+	@JsonProperty("usrLastname")
 	private String usrLastname;
 
 	@Column(name="USR_NAME")
+	@JsonProperty("usrName")
 	private String usrName;
 
 	@Column(name="USR_NICKNAME")
+	@JsonProperty("usrNickname")
 	private String usrNickname;
 
 	@Column(name="USR_PASSWORD")
+	@JsonProperty("usrPassword")
 	private String usrPassword;
 
 	@Lob
 	@Column(name="USR_PHOTO")
+	@JsonProperty("usrPhoto")
 	private byte[] usrPhoto;
 
 	@Column(name="USR_REGISTRATION_CODE")
+	@JsonProperty("usrRegistrationCode")
 	private BigDecimal usrRegistrationCode;
 
 	@Column(name="USR_STATE")
+	@JsonProperty("usrState")
 	private String usrState;
 
 	@Column(name="USR_TOKEN")
+	@JsonProperty("usrToken")
 	private String usrToken;
 
 	//bi-directional many-to-one association to Geolocalization
 	@OneToMany(mappedBy="user")
+	@Transient
+	
 	private List<Geolocalization> geolocalizations;
 
 	//bi-directional many-to-one association to Group
 	@OneToMany(mappedBy="user1")
+	@Transient
 	private List<Group> groups1;
 
 	//bi-directional many-to-one association to Group
 	@OneToMany(mappedBy="user2")
+	@Transient
 	private List<Group> groups2;
 
 	//bi-directional many-to-one association to Message
 	@OneToMany(mappedBy="user1")
+	@Transient
 	private List<Message> messages1;
 
 	//bi-directional many-to-one association to Message
 	@OneToMany(mappedBy="user2")
+	@Transient
 	private List<Message> messages2;
 
 	//bi-directional many-to-one association to Enterprise
@@ -83,6 +107,7 @@ public class User implements Serializable {
 
 	//bi-directional many-to-one association to UserRole
 	@OneToMany(mappedBy="user")
+	@Transient
 	private List<UserRole> userRoles;
 
 	public User() {
