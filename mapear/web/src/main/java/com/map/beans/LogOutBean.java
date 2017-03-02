@@ -1,6 +1,5 @@
 package com.map.beans;
 
-
 /*
  * @Autor
  * @Fecha:
@@ -27,7 +26,7 @@ import org.primefaces.event.TabCloseEvent;
 
 import com.map.entities.User;
 import com.map.services.UserEjb;
-import com.map.gcm.ChatConnectionBean;
+//import com.map.gcm.ChatConnectionBean;
 import com.map.gcm.eventBusApp;
 import com.map.GCMinterfaces.GcmInterface;
 
@@ -36,37 +35,53 @@ import com.map.GCMinterfaces.GcmInterface;
 public class LogOutBean implements Serializable, GcmInterface {
 
 	private static final long serialVersionUID = 5722616030335589264L;
-	ChatConnectionBean connection = new ChatConnectionBean();	
-	User user = new User();	
+	ChatBean connection = new ChatBean();
+	User user = new User();
 	User userTable = new User();
 	private List<User> userNotificationList = new ArrayList<User>();
+	private String confirmationPassword = new String();
 	ExternalContext ec;
+	private boolean flag = false;
+	private Boolean isFirstTime = Boolean.FALSE;
 
 	@EJB
 	UserEjb userAction;
-	
+
 	public void log() {
-		//chargeList();
-		ec = FacesContext.getCurrentInstance()
-				.getExternalContext();
-		//RC = RequestContext.getCurrentInstance();
-		user = userAction.findByName(ec.getUserPrincipal().getName());
-		user.setUsrIsLog("true");		
-
-		try {
-			userAction.merge(user);
-			connection.connect(YOUR_PROJECT_ID, YOUR_API_KEY);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(!flag){
+			ec = FacesContext.getCurrentInstance().getExternalContext();
+			user = userAction.findByName(ec.getUserPrincipal().getName());
+			isFirstTime = user.isUsrFirstTime();
+			if(isFirstTime)
+				//RequestContext.getCurrentInstance().update("login");
+			
+			user.setUsrIsLog("true");
+			try {
+				userAction.merge(user);
+				connection.connect(YOUR_PROJECT_ID, YOUR_API_KEY);
+				flag = true;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+			}
 		}
-	//	RequestContext.getCurrentInstance().execute("PF('bar').show();");
 	}
-
+	
+	public void confirmPassword(){
+		
+		ec = FacesContext.getCurrentInstance().getExternalContext();
+		user = userAction.findByName(ec.getUserPrincipal().getName());
+		isFirstTime = user.isUsrFirstTime();
+		if(!isFirstTime)
+			RequestContext.getCurrentInstance().update("login");
+		
+	
+	}
+	
 	public void logout() throws IOException {
 
-		ExternalContext ec = FacesContext.getCurrentInstance()
-				.getExternalContext();
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		ec.invalidateSession();
 		user = userAction.findByName(ec.getUserPrincipal().getName());
 		user.setUsrIsLog("false");
@@ -104,5 +119,12 @@ public class LogOutBean implements Serializable, GcmInterface {
 		this.userTable = userTable;
 	}
 
-}
+	public Boolean getIsFirstTime() {
+		return isFirstTime;
+	}
 
+	public void setIsFirstTime(Boolean isFirstTime) {
+		this.isFirstTime = isFirstTime;
+	}
+
+}

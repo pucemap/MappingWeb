@@ -1,5 +1,7 @@
 C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\services\UserRoleEjb.java
+C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\entities\CoordinatesRestructured.java
 C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\services\MessageEjb.java
+C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\services\CoordinatesEjb.java
 C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\entities\Role.java
 C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\entities\Enterprise.java
 C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\utils\SHA.java
@@ -7,6 +9,7 @@ C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\entities\User
 C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\entities\Form.java
 C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\services\FormEjb.java
 C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\services\GeolocalizationEjb.java
+C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\entities\Coordinates.java
 C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\services\GropuEjb.java
 C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\services\EnterpriseEjb.java
 C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\entities\Geolocalization.java
@@ -14,6 +17,7 @@ C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\entities\Mess
 C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\services\UserEjb.java
 C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\utils\GenericDAOImpl.java
 C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\services\RoleEjb.java
+C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\services\CoordinatesRestructuredEjb.java
 C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\entities\User.java
 C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\entities\Group.java
 C:\Users\GXCHAFLA2\git\MappingWeb\mapear\ejb\src\main\java\com\map\utils\GenericDAO.java

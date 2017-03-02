@@ -370,111 +370,130 @@ body {
 }
 
 .ui-scrollpanel {
-     border: solid 0px #fff; 
-    }
-
+	border: solid 0px #fff;
+}
 </style>
 	</ui:define>
 
 	<ui:define name="content">
-	<h:outputScript library="js" name="test.js" target="body" />
-		<h:form id="chatForm">
-		
 
-		
+		<h:form id="chatForm" onsubmit="saveScrollPos()">
 			
-			<div class="ui">
-				<div class="left-menu">
-					<p:selectOneListbox
-						style="height:100% !important;width:300px !important"
-						id="advanced" value="#{chatBean.userRole}"
-						converter="userRoleConverter" var="t" filter="true"
-						filterMatchMode="contains">
-						<p:ajax listener="#{chatBean.onAppointmentTypeChange}" />
-						<f:selectItems value="#{chatBean.userRoleList}" var="theme"
-							itemLabel="#{theme.user.usrName}" itemValue="#{theme}" />
-						<p:column>
-							<h:outputText value="#{t.user.usrName} #{t.user.usrLastname}" />
-						</p:column>
-					</p:selectOneListbox>
-				</div>
-				
-				
-				<div class="chat">
-					<div class="top">
-						<div class="avatar">
-							
-							<img width="50" height="50"
-								src="http://cs625730.vk.me/v625730358/1126a/qEjM1AnybRA.jpg" />
-						</div>
-						<div class="info">
-							<div class="name">#{chatBean.userRole.user.usrName} #{chatBean.userRole.user.usrLastname}</div>
-							<div class="count">#{chatBean.userRole.user.usrEmail}</div>
-						</div>
-						<i class="fa fa-star"></i>
+				<h:inputHidden id="scrollPos" />
+
+				<div class="ui">
+					<div class="left-menu">
+						<p:selectOneListbox
+							style="height:100% !important;width:300px !important"
+							id="advanced" value="#{chatBean.userRole}"
+							converter="userRoleConverter" var="t" filter="true"
+							filterMatchMode="contains">
+							<p:ajax listener="#{chatBean.onAppointmentTypeChange}" />
+							<f:selectItems value="#{chatBean.userRoleList}" var="theme"
+								itemLabel="#{theme.user.usrName}" itemValue="#{theme}" />
+							<p:column>
+								<h:outputText value="#{t.user.usrName} #{t.user.usrLastname}" />
+							</p:column>
+						</p:selectOneListbox>
 					</div>
 
 
-					<p:scrollPanel  id="scroll"  style="width:100%;height:70%" >
-							
-						<ul class="messages" id="mes">
-							<ui:repeat value="#{chatBean.lista}" var="user">
+					<div class="chat">
+						<div class="top">
+							<div class="avatar">
 
-								<h:panelGroup
-									rendered="#{chatBean.persona.user.usrId==user.user2.usrId and chatBean.user.usrId==user.user1.usrId}">
-									<li class="i">
-										<div class="head">
-											<span class="time">#{user.mesSendDate}</span> <span
-												class="name">#{chatBean.persona.user.usrName}
-												#{chatBean.persona.user.usrLastname}</span>
-										</div>
-										<div class="message">#{user.mesText}</div>
-									</li>
-								</h:panelGroup>
-								<h:panelGroup
-									rendered="#{chatBean.persona.user.usrId==user.user1.usrId and chatBean.user.usrId==user.user2.usrId}">
-									<li class="friend-with-a-SVAGina">
-										<div class="head">
-											<span class="name">#{chatBean.user.usrName}
-												#{chatBean.user.usrLastname}</span> <span class="time">#{user.mesSendDate}</span>
-										</div>
-										<div class="message">#{user.mesText}</div>
-									</li>
-								</h:panelGroup>
-							</ui:repeat>
-						</ul>
-					</p:scrollPanel>
-					
-					<div class="write-form">
-						<p:inputTextarea styleClass="Container75 Responsive100" id="area" autoResize="false" value="#{chatBean.messageText}"/>
-						<p:commandButton styleClass="send" value="ENVIAR" actionListener="#{chatBean.send()}"></p:commandButton>
-						
-						
+								<img width="50" height="50"
+									src="http://cs625730.vk.me/v625730358/1126a/qEjM1AnybRA.jpg" />
+							</div>
+							<div class="info">
+								<div class="name">#{chatBean.userRole.user.usrName}
+									#{chatBean.userRole.user.usrLastname}</div>
+								<div class="count">#{chatBean.userRole.user.usrEmail}</div>
+							</div>
+							<i class="fa fa-star"></i>
+						</div>
+						<p:scrollPanel id="scroll" style="width:100%;height:70%"
+							widgetVar="t">
+
+							<ul class="messages" id="mes">
+								<ui:repeat value="#{chatBean.lista}" var="user">
+
+									<h:panelGroup
+										rendered="#{chatBean.persona.user.usrId==user.user2.usrId and chatBean.user.usrId==user.user1.usrId}">
+										<li class="friend-with-a-SVAGina">
+											<div class="head">
+												<span class="time">#{user.mesSendDate}</span> <span
+													class="name">#{chatBean.persona.user.usrName}
+													#{chatBean.persona.user.usrLastname}</span>
+											</div>
+											<div class="message">#{user.mesText}</div>
+										</li>
+									</h:panelGroup>
+									<h:panelGroup
+										rendered="#{chatBean.persona.user.usrId==user.user1.usrId and chatBean.user.usrId==user.user2.usrId}">
+										<li class="i">
+											<div class="head">
+												<span class="name">#{chatBean.user.usrName}
+													#{chatBean.user.usrLastname}</span> <span class="time">#{user.mesSendDate}</span>
+											</div>
+											<div class="message">#{user.mesText}</div>
+										</li>
+									</h:panelGroup>
+								</ui:repeat>
+
+							</ul>
+						</p:scrollPanel>
+
+						<div class="write-form">
+							<p:inputTextarea styleClass="Container75 Responsive100" id="area"
+								autoResize="false" value="#{chatBean.messageText}" />
+							<p:commandButton styleClass="send" value="ENVIAR"
+								actionListener="#{chatBean.send()}"></p:commandButton>
+
+
+						</div>
 					</div>
 				</div>
-			</div>
-			
-			 
-			 <p:outputPanel id="public" layout="block" styleClass="ui-corner-all ui-widget-content chatlogs" />
- 
-    <p:commandButton value="Click" actionListener="#{chatBean.increment}" />
+
+
+				<p:outputPanel id="public" layout="block"
+					styleClass="ui-corner-all ui-widget-content chatlogs" />
+
+				<p:commandButton value="Click"
+					actionListener="#{chatBean.increment()}" />
+
+
 			
 		</h:form>
-<!-- 		<span id="myspan"> hereismytext </span> -->
-		
-		
-		<p:socket onMessage="handleMessage" channel="/counter">
-			
+
+		<!-- 		<span id="myspan"> hereismytext </span> -->
+
+		<p:socket onMessage="handleMessage" channel="/chargeMessages">
+			<p:ajax event="message" update=":chatForm"
+				listener="#{chatBean.onAppointmentTypeChange2}" />
 		</p:socket>
- 
+
+
+
+
+
 		<script type="text/javascript">
-		    function handleMessage(data) {
-		    
-				
-// 		    	$('#mes').append('<h:panelGroup rendered='#{chatBean.persona.user.usrId==user.user2.usrId and chatBean.user.usrId==user.user1.usrId}'><li class='i'><div class='head'><span class='name'>diego</span></div> <div class='message'>mensaje</div></li></h:panelGroup>');
+		    function handleMessage(facesmessage) {		    	
+	            console.log("entro al handlemessage");	            		    	
 		    }
+
+		   
+// 		    function saveScrollPos() {
+// 			    console.log("valioooo!!!");
+// 		       
+// 		        document.getElementById('chatForm:scrollPos').value = scrollPos;
+// 		    }
+// 		    window.onload = function() {
+// 		        var scrollPos = <h:outputText value="#{param['chatForm:scrollPos']}" />;
+// 		        document.getElementById('scroll').scrollTop = scrollPos;
+// 		    }
 		</script>
-		
+
 	</ui:define>
 
 </ui:composition>

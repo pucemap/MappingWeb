@@ -26,7 +26,6 @@
       <!-- The datasource is deployed as <EAR>/META-INF/mapear-ds.xml, you
          can find it in the source at ear/src/main/application/META-INF/mapear-ds.xml -->
       <jta-data-source>java:jboss/mapping-ds</jta-data-source>
-      <class>com.map.entities.Enterprise</class>
       <class>com.map.entities.Form</class>
       <class>com.map.entities.Geolocalization</class>
       <class>com.map.entities.Group</class>
@@ -34,6 +33,8 @@
       <class>com.map.entities.Role</class>
       <class>com.map.entities.User</class>
       <class>com.map.entities.UserRole</class>
+      <class>com.map.entities.Coordinates</class>
+      <class>com.map.entities.CoordinatesRestructured</class>
       <properties>
          <!-- Properties for Hibernate -->
          <!--<property name="hibernate.hbm2ddl.auto" value="create-drop" />-->

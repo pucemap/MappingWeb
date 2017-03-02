@@ -1,61 +1,74 @@
-<ui:composition 
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:pr="http://primefaces.org/rio">
-    
-    
-    <div id="layout-topbar">
-    	<div id="logo" class="Fleft">
-        	<a href="#"><h:graphicImage name="images/logo.svg" styleClass="Fleft" library="rio-layout" /></a>
-            <a id="mobile-menu-button" class="Fright ShowOnMobile ripplelink Unselectable ShadowEffect"><i class="icon-add186"></i></a>
-        </div>
-        
-        <a class="ripplelink WhiteBlue Fright ShowOnMobile" id="show-top-menu"><i class="icon-show8"></i></a>
-        
-        <ul id="top-menu" class="ShowOnDesktop">
-            <li>
-            	<h:form id="notificationForm">
-                <p:commandButton icon="fa fa-whatsapp Fs16 White" actionListener="#{loginBean.log()}" styleClass="BlueTextButton RaisedButton"	/>
-                
-                 <p:notificationBar position="bottom" effect="slide" widgetVar="bar" style="height=120px;">
-                 	<div class="Container100">
-			                    <div class="Container90 Responsive50">
-			                        <div class="ContainerIndent">
-					                 	 <p:tabView scrollable ="true" value= "#{loginBean.userNotificationList}"  var ="user" orientation= "bottom" id = "tab">
-                                            <p:tab title ="#{user.usrName} #{user.usrLastname} " closable="true">
-                                                   <h:panelGrid columns ="2" cellpadding= "5" >
-                                                         <p:commandButton value= "Enviar"/>
-                                                         <p:inputTextarea rows= "1" cols ="100" />
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:pr="http://primefaces.org/rio">
 
-                                                   </h:panelGrid >
-                                            </p:tab >
-                                         </p:tabView>
-			                     	</div>
-			                     </div>
-			                     <div class="Container10 Responsive50">
-			                     	<div class="ContainerIndent">
-		                     			 <p:commandButton styleClass="PurpleButton" value="Usuarios" actionListener ="#{loginBean.chargeList()}" id="carBtn"/>
-		                     			 <p:overlayPanel id= "carPanel" for = "carBtn" hideEffect ="clip" dynamic= "true" style ="width : 600px" >
-			                     			 <p:dataTable id= "userNotificationTable" var= "user" value ="#{loginBean.userList}" selectionMode= "single" selection ="#{loginBean.userTable}" rowKey= "#{user.usrName}">
-			                                     <p:ajax event ="rowSelect" listener ="#{loginBean.onRowSelect}" />
-			                                     <p:column headerText ="Nombre" >
-			                                           <h:outputText value ="#{user.usrName} #{user.usrLastname}" />
-			                                     </p:column>
-							                 </p:dataTable>
-						                 </p:overlayPanel>
-		                     		</div>
-			                     </div>
-                     </div>
-                     
-                 </p:notificationBar>
-                </h:form>
-            </li>
-        </ul>
-    </div>
-    <style type="text/css">
-           .ui-notificationbar{height:150px !important; background-color: transparent !important; padding: 0 !important;}
-        </style>
+	<h:form id="notificationForm">
+		<div id="layout-topbar">
+			<div id="logo" class="Fleft">
+				<a href="#"><h:graphicImage name="images/logo.svg"
+						styleClass="Fleft" library="rio-layout" /></a> <a
+					id="mobile-menu-button"
+					class="Fright ShowOnMobile ripplelink Unselectable ShadowEffect"><i
+					class="icon-add186"></i></a>
+			</div>
+
+			<a class="ripplelink WhiteBlue Fright ShowOnMobile"
+				id="show-top-menu"><i class="icon-show8"></i></a>
+
+			<ul id="top-menu" class="ShowOnDesktop">
+				<li>
+					<!--                 <p:commandButton icon="fa fa-whatsapp Fs16 White" actionListener="#{loginBean.log()}" styleClass="BlueTextButton RaisedButton"	/> -->
+
+					<p:notificationBar position="bottom" effect="slide" widgetVar="bar"
+						style="height=120px;">
+						<div class="Container100">
+							<div class="Container90 Responsive50">
+								<div class="ContainerIndent">
+									<p:tabView scrollable="true"
+										value="#{loginBean.userNotificationList}" var="user"
+										orientation="bottom" id="tab">
+										<p:tab title="#{user.usrName} #{user.usrLastname} "
+											closable="true">
+											<h:panelGrid columns="2" cellpadding="5">
+												<p:commandButton value="Enviar" />
+												<p:inputTextarea rows="1" cols="100" />
+
+											</h:panelGrid>
+										</p:tab>
+									</p:tabView>
+								</div>
+							</div>
+							<div class="Container10 Responsive50">
+								<div class="ContainerIndent">
+									<p:commandButton styleClass="PurpleButton" value="Usuarios"
+										id="carBtn" />
+									<p:overlayPanel id="carPanel" for="carBtn" hideEffect="clip"
+										dynamic="true" style="width : 600px">
+										<p:dataTable id="userNotificationTable" var="user"
+											selectionMode="single" selection="#{loginBean.userTable}"
+											rowKey="#{user.usrName}">
+											<p:column headerText="Nombre">
+												<h:outputText value="#{user.usrName} #{user.usrLastname}" />
+											</p:column>
+										</p:dataTable>
+									</p:overlayPanel>
+								</div>
+							</div>
+						</div>
+
+					</p:notificationBar>
+
+				</li>
+			</ul>
+		</div>
+	</h:form>
+	<style type="text/css">
+.ui-notificationbar {
+	height: 150px !important;
+	background-color: transparent !important;
+	padding: 0 !important;
+}
+</style>
 </ui:composition>

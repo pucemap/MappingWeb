@@ -1,19 +1,13 @@
 package com.map.resources;
 
-import javax.faces.application.FacesMessage;
-
 import org.primefaces.push.annotation.OnMessage;
 import org.primefaces.push.annotation.PushEndpoint;
 import org.primefaces.push.impl.JSONEncoder;
 
-@PushEndpoint("/counter")
-public class ChatResource {
+@PushEndpoint("/chargeMessages")
+public class ShowMessagesResource {
 	@OnMessage(encoders = { JSONEncoder.class })
-	public FacesMessage onMessage(FacesMessage count) {
+	public String onMessage(String count) {
         return count;
     }
 }
-
-
-
-

@@ -1,36 +1,52 @@
-<ui:composition 
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:pr="http://primefaces.org/rio">
 
-    <div class="Animated05" id="layout-menu-cover">
-        <ul class="layout-menu">
-            <li>
-                <a class="menulink ripplelink">
-                    <i class="icon-round58 Fs40"></i>
-                    <span class="Fs18"><h:outputText value="#{request.getUserPrincipal().getName()}"/><i class="icon-downwards Fright Fs20"></i><br /><span class="Fs12 FontRobotoLight">Sr. Administrador</span></span>
-                </a>
-                <ul>
-					<li><p:commandLink value="Cerrar Sesión"
-							action="#{loginBean.logout()}" /></li>
-				</ul>
-            </li>
-        </ul>
-        <div class="Separator"></div>
-        <h:form>
-        
-        <pr:menu>
-            <p:menuitem id="rm_user" value="Usuarios" icon="icon-account4" outcome="/pages/user/user.xhtml"/>
-            <p:menuitem id="rm_chat" value="Chat" icon="icon-chat76" outcome="/pages/chat/chat.xhtml"   onclick="#{loginBean.log()}"/>
-            <p:menuitem id="rm_geo" value="Geolocalización" icon="icon-map103" outcome="/pages/geolocalitation/geo.xhtml"/>
-            
-           
-            <p:separator />
-        </pr:menu>
-		</h:form>
-    </div>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:pr="http://primefaces.org/rio">
+	<h:head></h:head>
+	<h:form id="layoutForm" rendered="#{!layoutBean.isFirstTime}">
 
+		<div class="Animated05" id="layout-menu-cover">
+			<ul class="layout-menu">
+				<li><a class="menulink ripplelink"> <i
+						class="icon-round58 Fs40"></i> <span class="Fs18"><h:outputText
+								value="#{request.getUserPrincipal().getName()}" /><i
+							class="icon-downwards Fright Fs20"></i><br /> <span
+							class="Fs12 FontRobotoLight">Sr. Administrador</span></span>
+				</a>
+					<ul>
+						<li><p:commandLink value="Cerrar Sesión"
+								action="#{loginBean.logout()}" /></li>
+					</ul></li>
+			</ul>
+			<div class="Separator"></div>
+
+
+			<pr:menu>
+				<p:menuitem id="rm_user" value="Usuarios" icon="icon-account4"
+					outcome="/pages/user/user.xhtml" />
+				<p:menuitem id="rm_chat" value="Chat" icon="icon-chat76"
+					outcome="/pages/chat/chat.xhtml"
+					rendered="#{layoutBean.userConnectedRol eq 'Administrador' or layoutBean.userConnectedRol eq 'Usuario'}" />
+				<p:menuitem id="rm_geo" value="Geolocalización" icon="icon-map103"
+					outcome="/pages/geolocation/geo.xhtml" />
+
+
+
+				<p:separator />
+			</pr:menu>
+			<p:growl widgetVar="growl" showDetail="true" />
+
+
+			
+			<script type="text/javascript">
+		    function showGrowl(facesmessage) {
+		    	facesmessage.severity = 'info';		    	 
+	            PF('growl').show([facesmessage]);
+	            console.log("entro al handlemessagejagdashdasghdg");		    	
+		    }
+		    </script>
+		</div>
+	</h:form>
 </ui:composition>

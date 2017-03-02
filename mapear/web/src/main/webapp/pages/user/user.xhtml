@@ -42,130 +42,206 @@
             }
         </script>
 		<style type="text/css">
-.jqplot-target,.jqplot-axis {
+.jqplot-target, .jqplot-axis {
 	color: #778D9B;
 }
 </style>
 	</ui:define>
-	
+
 	<ui:define name="content">
-		<h:form id="userForm">
-		<div class="Container100">
-            <div class="ContainerIndent">
-                <div class="Card ShadowEffect  ">
-                        <div class="ContainerIndent">
-                          	<h2 class="BigTopic">Búsqueda</h2>
-                          	
-                          	<div class="Container60 Responsive50">
-                            <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" styleClass="FormContent">
-                                <p:inputText styleClass="Wid90" placeholder="Nombre" value="#{userBean.userSearch.usrName}"/>
-                                <p:inputText styleClass="Wid90" placeholder="Apellido" value="#{userBean.userSearch.usrLastname}"/>
-                                
-                            </p:panelGrid>
-                            </div>
-                            <div class="Container40 Responsive50">
-                            <p:panelGrid columns="3" layout="grid" style="border:0px !important; background:none;" styleClass="FormContent">
-								 <p:commandButton value="Buscar"  styleClass="PurpleButton" actionListener="#{userBean.search()}"/>
-								 <p:commandButton value="Limpiar" styleClass="PurpleButton" actionListener="#{userBean.clean()}"/>
-								 <p:commandButton icon="fa fa-child Fs16 White" styleClass="BlueTextButton RaisedButton" onclick="PF('dlg2').show();"/>                                
-                            </p:panelGrid>
-                            </div>
-                        </div>
-                    
-                </div>
-            </div>
-        </div>
-        
-        <div class="Container100">
-            <div class="ContainerIndent">
-                <div class="Card ShadowEffect">
-                    <p:dataTable id="userTable" var="user" value="#{userBean.userList}">
+		<h:form id="userForm" rendered="#{!userBean.isFirstTime}"
+			enctype="multipart/form-data">
 
-						<p:column headerText="Nombre">
-							<h:outputText value="#{user.usrName}" />
-						</p:column>
+			<div class="Container100">
+				<div class="ContainerIndent">
+					<div class="Card ShadowEffect  ">
+						<div class="ContainerIndent">
+							<h2 class="BigTopic">Búsqueda</h2>
 
-						<p:column headerText="Apellido">
-							<h:outputText value="#{user.usrLastname}" />
-						</p:column>
+							<div class="Container60 Responsive50">
+								<p:panelGrid columns="2" layout="grid"
+									style="border:0px !important; background:none;"
+									styleClass="FormContent">
+									<p:inputText styleClass="Wid90" placeholder="Nombre"
+										value="#{userBean.userSearch.usrName}" />
+									<p:inputText styleClass="Wid90" placeholder="Apellido"
+										value="#{userBean.userSearch.usrLastname}" />
 
-						<p:column headerText="Email">
-							<h:outputText value="#{user.usrEmail}" />
-						</p:column>
+								</p:panelGrid>
+							</div>
+							<div class="Container40 Responsive50">
+								<p:panelGrid columns="3" layout="grid"
+									style="border:0px !important; background:none;"
+									styleClass="FormContent">
+									<p:commandButton value="Buscar" styleClass="PurpleButton"
+										actionListener="#{userBean.search()}" />
+									<p:commandButton value="Limpiar" styleClass="PurpleButton"
+										actionListener="#{userBean.clean()}" />
+									<p:commandButton icon="fa fa-child Fs16 White"
+										styleClass="GreenButton" onclick="PF('dlg2').show();"
+										rendered="#{userBean.connectedUserRole eq 'Administrador' or userBean.connectedUserRole eq 'Usuario'}" />
+								</p:panelGrid>
+							</div>
+						</div>
 
-						<p:column headerText="Editar">
-							<center>
-								<p:commandButton icon="fa fa-pencil Fs16 White" styleClass="BlueTextButton RaisedButton"
-									actionListener="#{userBean.edit(user)}"
-									/>
-								<p:commandButton icon="fa fa-trash Fs16 White" styleClass="BlueTextButton RaisedButton"
-									actionListener="#{userBean.delete(user)}"
-									/>
-							</center>
-						</p:column>
-					</p:dataTable>
-					
-					<p:dialog id="insertDialog" header="Usuario"
-					widgetVar="dlg2" height="490" width="500">
-					<p:ajax event="close" listener="#{userBean.handleClose}" />
-					<h:panelGrid columns="2" cellpadding="2" style="margin:0 auto;">
+					</div>
+				</div>
+			</div>
 
-						<h:outputText value="Nickname:" />
-						<p:inputText id="name" value="#{userBean.user.usrNickname}"
-							style="width: 100%;" 
-							/>
+			<div class="Container100">
+				<div class="ContainerIndent">
+					<div class="Card ShadowEffect">
+						<p:dataTable id="userTable" var="user"
+							value="#{userBean.userList}">
 
-						<h:outputText value="Nombre" />
-						<p:inputText value="#{userBean.user.usrName}"
-							style="width: 100%;" />
-
-						<h:outputText value="Apellido:" />
-						<p:inputText value="#{userBean.user.usrLastname}"
-							style="width: 100%;" />
-
-
-						<h:outputText value="Email" />
-						<p:inputText value="#{userBean.user.usrEmail}"
-							style="width: 100%;" />
-
-						<h:outputText value="Rol" />
-						<p:selectOneMenu id="advanced" styleClass="width: 100%;"
-							value="#{userBean.userRole.role}" converter="roleConverter"
-							panelStyle="width:180px" var="t" style="width:160px"
-							>
-							<f:selectItem itemLabel="Seleccione Uno" itemValue="#{null}" />
-							<f:selectItems value="#{userBean.roleList}" var="proj"
-								itemLabel="#{proj.rolName}" itemValue="#{proj}" />
-
-							<p:column>
-								<h:outputText value="#{t.rolName}" />
+							<p:column headerText="Usuario">
+								<h:outputText value="#{user.usrNickname}" />
 							</p:column>
-						</p:selectOneMenu>
 
-						<h:outputText value="Contraseña:" />
-						<p:password id="pwd1" value="#{userBean.passwordWSSH1}"
-							label="Password 1" feedback="true" inline="true"
-							style="width: 100%;" />
+							<p:column headerText="Nombre">
+								<h:outputText value="#{user.usrName}" />
+							</p:column>
 
-						<h:outputLabel for="pwd2" value="Contraseña:" />
-						<p:password id="pwd2" value="#{userBean.passwordWSSH2}"
-							label="Password 2" style="width: 100%;" />
+							<p:column headerText="Apellido">
+								<h:outputText value="#{user.usrLastname}" />
+							</p:column>
 
-						<p:spacer width="100" height="20" />
-						<p:spacer width="100" height="10" />
-					</h:panelGrid>
+							<p:column headerText="Email">
+								<h:outputText value="#{user.usrEmail}" />
+							</p:column>
 
-					<center>
-						<p:commandButton value="Guardar"
-							actionListener="#{userBean.save()}" />
-					</center>
+							<p:column headerText="Editar"
+								rendered="#{userBean.connectedUserRole eq 'Administrador' or userBean.connectedUserRole eq 'Usuario'}">
+								<center>
+									<p:commandButton icon="fa fa-pencil Fs16 White"
+										styleClass="GreenButton"
+										actionListener="#{userBean.edit(user)}" />
+									<p:commandButton icon="fa fa-trash Fs16 White"
+										styleClass="GreenButton"
+										actionListener="#{userBean.delete(user)}" />
+									<p:commandButton icon="fa fa-rotate-left"
+										styleClass="GreenButton"
+										actionListener="#{userBean.resetPassword(user)}"
+										update="growl" />
+									<p:growl id="growl" showDetail="true" sticky="false"
+										life="1000" />
+								</center>
+							</p:column>
+						</p:dataTable>
+
+						<p:dialog id="insertDialog" header="Usuario" widgetVar="dlg2"
+							height="490" width="500">
+							<p:ajax event="close" listener="#{userBean.handleClose}" />
+							<h:panelGrid columns="2" cellpadding="2" style="margin:0 auto;">
+
+								<h:outputText value="Usuario:" />
+								<p:inputText id="name" value="#{userBean.user.usrNickname}"
+									style="width: 100%;" />
+
+								<h:outputText value="Cedula de Identidad:" />
+								<p:inputText id="identificationNumber"
+									value="#{userBean.user.usrIdentificationNumber}" maxlength="10"
+									style="width: 100%;" />
+								<h:outputText value="Nombres:" />
+								<p:inputText value="#{userBean.user.usrName}"
+									style="width: 100%;" />
 
 
-				</p:dialog>
-                </div>
-            </div>
-        </div>
-        </h:form>
+								<h:outputText value="Apellidos:" />
+								<p:inputText value="#{userBean.user.usrLastname}"
+									style="width: 100%;" />
+
+
+								<h:outputText value="Email:" />
+								<p:inputText value="#{userBean.user.usrEmail}"
+									style="width: 100%;" />
+
+								<h:outputText value="Rol:" />
+								<p:selectOneMenu id="advanced" styleClass="width: 100%;"
+									value="#{userBean.userRole.role}" converter="roleConverter"
+									panelStyle="width:180px" var="t" style="width:160px">
+									<f:selectItem itemLabel="Seleccione Uno" itemValue="#{null}" />
+									<f:selectItems value="#{userBean.roleList}" var="proj"
+										itemLabel="#{proj.rolName}" itemValue="#{proj}" />
+
+									<p:column>
+										<h:outputText value="#{t.rolName}" />
+									</p:column>
+								</p:selectOneMenu>
+								<h:outputLabel for="seconds" value="Tiempo de rastreo:" />
+								<p:spinner id="seconds" value="#{userBean.seconds}" min="0" />
+
+								<h:outputText value="Image:" />
+								<p:fileUpload mode="advanced"
+									fileUploadListener="#{userBean.handleFileUpload}"
+									skinSimple="true" auto="true" sizeLimit="1000000000000"
+									allowTypes="/(\.|\/)(gif|jpe?g|png)$/" dragDropSupport="true" />
+
+
+
+								<p:spacer width="100" height="20" />
+								<p:spacer width="100" height="10" />
+							</h:panelGrid>
+
+							<center>
+								<p:commandButton value="Guardar" action="#{userBean.test()}"
+									ajax="false" />
+							</center>
+
+
+						</p:dialog>
+					</div>
+				</div>
+			</div>
+		</h:form>
+
+
+		<h:form id="confirmationPasswordForm"
+			rendered="#{userBean.isFirstTime}">
+			<div class="Wid90 DispBlock MarAuto MarTopPerc5 TexAlCenter">
+				<div class="Wid33 MarAuto WidAutoOnMobile">
+					<h:graphicImage name="images/logo.svg" library="rio-layout"
+						style="width:40%; max-width:200px;" />
+					<div class="EmptyBox30"></div>
+					<div class="Card ShadowEffect">
+						<div class="EmptyBox20"></div>
+						<div class="Wid100 OvHidden BigTopic Fs30">
+							<i class="icon-users Fs40"></i> PasswordPanel
+						</div>
+						<div class="EmptyBox20"></div>
+						<div class="Wid100">
+							<p:inputText type="password" placeholder="Password"
+								value="#{userBean.password}" id="password"
+								styleClass="Wid80 TexAlCenter Fs18" />
+						</div>
+						<div class="EmptyBox10"></div>
+						<div class="Wid100">
+							<p:inputText type="password" placeholder="Confirm Password"
+								id="confirmPassword" value="#{userBean.confirmPassword}"
+								styleClass="Wid80 TexAlCenter Fs18" />
+						</div>
+						<div class="EmptyBox30"></div>
+						<div class="Wid100">
+							<p:commandButton value="Confirmar" id="confirmation"
+								action="#{userBean.confirmationPassword()}" icon="fa fa-sign-in"
+								styleClass="Wid60 Fs18 White RaisedButton"
+								oncomplete="location.reload()" />
+						</div>
+						<div class="EmptyBox5"></div>
+						<div class="EmptyBosx20"></div>
+					</div>
+				</div>
+			</div>
+
+			<h:outputStylesheet name="css/core-layout.css" library="rio-layout" />
+			<h:outputStylesheet name="css/animate.css" library="rio-layout" />
+			<h:outputStylesheet name="css/rio-font.css" library="rio-layout" />
+			<h:outputStylesheet name="css/ripple-effect.css" library="rio-layout" />
+			<h:outputStylesheet name="css/font-awesome.css" library="rio-layout" />
+			<h:outputStylesheet name="css/rio-layout.css" library="rio-layout" />
+
+		</h:form>
+
 	</ui:define>
 
 </ui:composition>

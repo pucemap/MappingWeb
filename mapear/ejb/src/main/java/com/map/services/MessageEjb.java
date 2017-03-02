@@ -21,7 +21,7 @@ public class MessageEjb extends GenericDAOImpl<Message, Integer>{
 	public List<Message> getMessagesByUsers(User usrSender, User usrReceiver){
 		List<Message> list = new ArrayList<Message>();
 		String query = "SELECT m FROM Message m where m.user2.usrId IN ("+usrSender.getUsrId()+","+usrReceiver.getUsrId()+")"+
-					" and m.user1.usrId IN ("+usrSender.getUsrId()+","+usrReceiver.getUsrId()+")";
+					" and m.user1.usrId IN ("+usrSender.getUsrId()+","+usrReceiver.getUsrId()+") order by m.mesSendDate asc";
 		
 		try {
 			list = find(query);
@@ -32,5 +32,20 @@ public class MessageEjb extends GenericDAOImpl<Message, Integer>{
 		
 		return list;
 		
+	}
+	
+	public List<Message> getMessagesByUser(User usr){
+		List<Message> list = new ArrayList<Message>();
+		String query = "SELECT m FROM Message m where m.user2.usrId = "+usr.getUsrId()+" "+
+					" or m.user1.usrId  = "+usr.getUsrId()+" ";
+		
+		try {
+			list = find(query);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 }

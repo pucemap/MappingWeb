@@ -24,6 +24,6 @@ public interface GcmInterface {
 	// ="eKx0wwOuIak:APA91bHnrSTaJJFgTIhdEHxXKqgEH1lpnxk3wqhGn4iuusAYsh21xLqezeXkp2cOeZh6CEtN5hkxiU10EjpbXV3FmihUmrt6dton-zzS-r-nNAI7wgnrp90dpBfZMQMETMKas2SYRfoQ";
 	// public static final String
 	// YOUR_PHONE_REG_ID="f67-JHQDNFw:APA91bE3N9fLOcnwRYWSukPYPizOVuZDQaiaa6xRVsZ-Si3s85ba5dYHCpsH3FGmSOWsT2czl6GDUUG-aupBOHXDw3inRcuj3JjyygI3hYp6hFUHrsLkNjPE6A85EeyVBHS1HaEsd1hD";
-	public static final String YOUR_PHONE_REG_ID = "e7Y0jWRDOEU:APA91bELLjA6L9Aq6YWJ7ekO-Y_E3BZZdIZp5UMUs8CM3tSjVIE1OfDJysGaFYIrxCPFFf5lhFPIN3CPFTTWUdHEgDC3aFdni3RYsy3G6b7kbrJX4ExwBa69Pyc_N8scr8DhkWAm1skR";
-	//public static final String YOUR_PHONE_REG_ID = "lktyCwQpgTk:APA91bGEW7Ndmm2tXtcXktC1YPFOxJlk-SU79eQ12NB3Ckldkkx3Tdy_Xh97PBRl9_H4EcTi5ZVXEGFcSvK2-m1KyfFAdcCvL2SeR-hDivdO_zJxDlkfLbkUGi_byQ5gxIs5_bMgYjAK";
+	//public static final String YOUR_PHONE_REG_ID = "cDm59eGaMiY:APA91bF3EXr-mnFFVipMBGGlXIk6LW-9JEVotY9TA6zZQOM5F7I3nIlfOTti3NQf0kzEoOlh43xeVfsGjafQ5u4sPf1fMxZTb9xnckZH76P8cNoUefpz2xh-EFUc7lB5fQJee_4XhzBW";
+	public static final String YOUR_PHONE_REG_ID = "cNeGmBtD9iw:APA91bFOhgC0fopTYELODCptEe44TwnoeB_BT_jty2V_nGv8HBZ_mNw2-d4CXESuE1h_hNNgHQvUnpQR5zoZ50vyASjt1xcHvae2DHnTJaQYkDMyP7HxBD6YSvctJjS4Ykl-57wEDhjh";
 }

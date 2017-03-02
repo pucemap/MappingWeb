@@ -2,6 +2,9 @@ package com.map.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -19,70 +22,126 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="USR_ID")
+	@JsonProperty("usrId")
 	private int usrId;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="USR_CREATION_DATE")
+	@JsonProperty("usrCreationDate")
 	private Date usrCreationDate;
 
 	@Column(name="USR_EMAIL")
+	@JsonProperty("usrEmail")
 	private String usrEmail;
 
 	@Column(name="USR_IS_LOG")
+	@JsonProperty("usrIsLog")
 	private String usrIsLog;
 
 	@Column(name="USR_LASTNAME")
+	@JsonProperty("usrLastname")
 	private String usrLastname;
 
 	@Column(name="USR_NAME")
+	@JsonProperty("usrName")
 	private String usrName;
 
 	@Column(name="USR_NICKNAME")
+	@JsonProperty("usrNickname")
 	private String usrNickname;
+		
+	@Column(name="USR_TIMER_FREQUENCY")
+	private int usrTimerFrequency;
 
 	@Column(name="USR_PASSWORD")
+	@JsonProperty("usrPassword")
 	private String usrPassword;
 
 	@Lob
 	@Column(name="USR_PHOTO")
+	@JsonProperty("usrPhoto")
 	private byte[] usrPhoto;
 
 	@Column(name="USR_REGISTRATION_CODE")
+	@JsonProperty("usrRegistrationCode")
 	private BigDecimal usrRegistrationCode;
 
 	@Column(name="USR_STATE")
+	@JsonProperty("usrState")
 	private String usrState;
 
 	@Column(name="USR_TOKEN")
+	@JsonProperty("usrToken")
 	private String usrToken;
+	
+	@Column(name="USR_COLOR")
+	@JsonProperty("usrColor")
+	private String usrColor;
+	
+	@Column(name="USR_IOS_TOKEN")
+	@JsonProperty("usrIosToken")
+	private String usrIosToken;
+	
+	@Column(name="USR_FIRST_TIME")
+	@JsonProperty("usrFirstTime")
+	private boolean usrFirstTime;
+	
+	@Column(name="USR_IDENTIFICATION_NUMBER")
+	@JsonProperty("usrIdentificationNumber")
+	private String usrIdentificationNumber;
+	
+	@Column(name="USR_SMARTPHONE_TYPE")
+	@JsonProperty("usrSmartphoneType")
+	private String usrSmartphoneType;
+	
+	@Column(name="USR_SECONDARY_COLOR")
+	private String usrSecondaryColor;
 
 	//bi-directional many-to-one association to Geolocalization
 	@OneToMany(mappedBy="user")
+	@Transient
 	private List<Geolocalization> geolocalizations;
+
+	public String getUsrIosToken() {
+		return usrIosToken;
+	}
+
+	public void setUsrIosToken(String usrIosToken) {
+		this.usrIosToken = usrIosToken;
+	}
+
+	public String getUsrColor() {
+		return usrColor;
+	}
+
+	public void setUsrColor(String usrColor) {
+		this.usrColor = usrColor;
+	}
 
 	//bi-directional many-to-one association to Group
 	@OneToMany(mappedBy="user1")
+	@Transient
 	private List<Group> groups1;
 
 	//bi-directional many-to-one association to Group
 	@OneToMany(mappedBy="user2")
+	@Transient
 	private List<Group> groups2;
 
 	//bi-directional many-to-one association to Message
 	@OneToMany(mappedBy="user1")
+	@Transient
 	private List<Message> messages1;
 
 	//bi-directional many-to-one association to Message
 	@OneToMany(mappedBy="user2")
+	@Transient
 	private List<Message> messages2;
 
-	//bi-directional many-to-one association to Enterprise
-	@ManyToOne
-	@JoinColumn(name="ENT_ID")
-	private Enterprise enterprise;
 
 	//bi-directional many-to-one association to UserRole
 	@OneToMany(mappedBy="user")
+	@Transient
 	private List<UserRole> userRoles;
 
 	public User() {
@@ -294,13 +353,6 @@ public class User implements Serializable {
 		return messages2;
 	}
 
-	public Enterprise getEnterprise() {
-		return this.enterprise;
-	}
-
-	public void setEnterprise(Enterprise enterprise) {
-		this.enterprise = enterprise;
-	}
 
 	public List<UserRole> getUserRoles() {
 		return this.userRoles;
@@ -308,6 +360,47 @@ public class User implements Serializable {
 
 	public void setUserRoles(List<UserRole> userRoles) {
 		this.userRoles = userRoles;
+	}
+
+
+	public int getUsrTimerFrequency() {
+		return usrTimerFrequency;
+	}
+
+	public void setUsrTimerFrequency(int usrTimerFrequency) {
+		this.usrTimerFrequency = usrTimerFrequency;
+	}
+
+	public boolean isUsrFirstTime() {
+		return usrFirstTime;
+	}
+
+	public void setUsrFirstTime(boolean usrFirstTime) {
+		this.usrFirstTime = usrFirstTime;
+	}
+
+	public String getUsrIdentificationNumber() {
+		return usrIdentificationNumber;
+	}
+
+	public void setUsrIdentificationNumber(String usrIdentificationNumber) {
+		this.usrIdentificationNumber = usrIdentificationNumber;
+	}
+
+	public String getUsrSmartphoneType() {
+		return usrSmartphoneType;
+	}
+
+	public void setUsrSmartphoneType(String usrSmartphoneType) {
+		this.usrSmartphoneType = usrSmartphoneType;
+	}
+
+	public String getUsrSecondaryColor() {
+		return usrSecondaryColor;
+	}
+
+	public void setUsrSecondaryColor(String usrSecondaryColor) {
+		this.usrSecondaryColor = usrSecondaryColor;
 	}
 
 	public UserRole addUserRole(UserRole userRole) {
@@ -345,6 +438,8 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}
+
+
 
 	
 }

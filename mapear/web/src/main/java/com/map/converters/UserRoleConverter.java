@@ -1,5 +1,7 @@
 package com.map.converters;
 
+import java.util.Map;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -8,6 +10,7 @@ import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
 import com.map.beans.ChatBean;
+import com.map.beans.GeoBean;
 import com.map.entities.UserRole;
 
 @FacesConverter("userRoleConverter")
@@ -19,7 +22,10 @@ public class UserRoleConverter implements Converter{
 			UserRole car = new UserRole();
 			try {
 				
-				ChatBean service = (ChatBean)fc.getExternalContext().getSessionMap().get("chatBean");
+				//ChatBean service = (ChatBean)fc.getExternalContext().getSessionMap().get("chatBean");
+				@SuppressWarnings("static-access")
+				Map<String, Object> viewMap = fc.getCurrentInstance().getViewRoot().getViewMap();
+				ChatBean service = (ChatBean)viewMap.get("chatBean");
 				
 				for(UserRole aux: service.getUserRoleList())
 				{

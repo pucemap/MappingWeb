@@ -36,11 +36,29 @@ public class UserRoleEjb extends GenericDAOImpl<UserRole, Integer>{
 		return userFinded;
 	}
 	
+	public UserRole findByUserNickname(User user){
+		UserRole userFinded = new UserRole();
+		List<UserRole> list = new ArrayList<UserRole>();
+		
+		String query = "SELECT u FROM UserRole u where u.user.usrNickname ='"+user.getUsrNickname()+"'";
+		try {
+			list = find(query);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for(UserRole aux : list){
+			userFinded = aux;
+		}
+		return userFinded;
+	}
+	
 	public List<UserRole> findByUserRole(){
 		
 		List<UserRole> list = new ArrayList<UserRole>();
 		
-		String query = "SELECT u FROM UserRole u where u.role.rolName ='"+"Android"+"'";
+		String query = "SELECT u FROM UserRole u where u.role.rolName in ('Invitador','Usuario')";
 		try {
 			list = find(query);
 		} catch (Exception e) {
@@ -56,7 +74,7 @@ public class UserRoleEjb extends GenericDAOImpl<UserRole, Integer>{
 		List<UserRole> list = new ArrayList<UserRole>();
 		List<User> listUsers = new ArrayList<User>();
 		
-		String query = "SELECT u FROM UserRole u where u.role.rolName ='"+"Android"+"'";
+		String query = "SELECT u FROM UserRole u where u.role.rolName in ('Invitado','Usuario')";
 		try {
 			list = find(query);
 		} catch (Exception e) {

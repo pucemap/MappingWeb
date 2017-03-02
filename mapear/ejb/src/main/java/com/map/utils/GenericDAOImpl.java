@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
  
-public abstract class GenericDAOImpl<T, PK extends Serializable>  {
+public abstract class GenericDAOImpl<T, PK extends Serializable> {
  
 	@PersistenceContext(unitName = "primary")
 	private EntityManager entityManager;
@@ -40,7 +40,7 @@ public abstract class GenericDAOImpl<T, PK extends Serializable>  {
 	public T findInstanceByNamedQuery(String queryName) throws Exception {
 		try {
 			final Query q = this.entityManager.createNamedQuery(queryName);
-			q.setMaxResults(100);
+//			q.setMaxResults(100);
 			@SuppressWarnings("unchecked")
 			final T result = (T) q.getSingleResult();
 			return result;
@@ -95,7 +95,7 @@ public abstract class GenericDAOImpl<T, PK extends Serializable>  {
 					q.setParameter(position++, obj);
 				}
 			}
-			q.setMaxResults(100);
+			//q.setMaxResults(100);
 			@SuppressWarnings("unchecked")
 			final List<T> result = q.getResultList();
 			return result;
@@ -159,7 +159,19 @@ public abstract class GenericDAOImpl<T, PK extends Serializable>  {
 	public List<T> find(String query) throws Exception {
 		try {
 			final Query q = this.entityManager.createQuery(query);
-			q.setMaxResults(100);
+			//q.setMaxResults(200);
+			@SuppressWarnings("unchecked")
+			final List<T> result = q.getResultList();
+			return result;
+		} catch (final Exception e) {
+			throw new Exception(e);
+		}
+	}
+	
+	public List<T> findForGeo(String query) throws Exception {
+		try {
+			final Query q = this.entityManager.createQuery(query);
+			q.setMaxResults(98);
 			@SuppressWarnings("unchecked")
 			final List<T> result = q.getResultList();
 			return result;
@@ -206,7 +218,7 @@ public abstract class GenericDAOImpl<T, PK extends Serializable>  {
 	public List<T> findAllLimited() throws Exception {
 		try {
 			Query q = this.entityManager.createQuery("select o from " + this.type.getSimpleName() + " o");
-			q.setMaxResults(100);
+			//q.setMaxResults(100);
 			@SuppressWarnings("unchecked")
 			List<T> results = q.getResultList();
 			return results;
@@ -220,7 +232,7 @@ public abstract class GenericDAOImpl<T, PK extends Serializable>  {
 			Query q = this.entityManager.createQuery(
 					"select o from " + this.type.getSimpleName() + " o "
 					+ "order by " + order);
-			q.setMaxResults(100);
+			//q.setMaxResults(100);
 			@SuppressWarnings("unchecked")
 			List<T> results = q.getResultList();
 			return results;
@@ -243,7 +255,7 @@ public abstract class GenericDAOImpl<T, PK extends Serializable>  {
 	public List<T> findByNamedQueryParameter(String queryName, Object... args)
 			throws Exception {
 		Query q = this.getAndCreateNamedQueryParameters(queryName, args);
-		q.setMaxResults(100);
+		//q.setMaxResults(100);
 		@SuppressWarnings("unchecked")
 		List<T> result = q.getResultList();
 		return result;
@@ -253,7 +265,7 @@ public abstract class GenericDAOImpl<T, PK extends Serializable>  {
 	public List<T> findByQueryParameter(String query, Object... args)
 			throws Exception {
 		Query q = this.entityManager.createQuery(query);
-		q.setMaxResults(100);
+		//q.setMaxResults(100);
 		this.populateQueryParameter(q, args);
 		return q.getResultList();
 	}
@@ -281,7 +293,7 @@ public abstract class GenericDAOImpl<T, PK extends Serializable>  {
 			Object... args) throws Exception {
 		try {
 			final Query q = this.entityManager.createNamedQuery(queryName);
-			q.setMaxResults(100);
+			//q.setMaxResults(100);
 			this.populateQueryParameter(q, args);
 			return q;
 		} catch (final Exception e) {

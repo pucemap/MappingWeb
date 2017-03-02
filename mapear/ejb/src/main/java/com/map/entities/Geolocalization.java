@@ -2,6 +2,9 @@ package com.map.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -18,13 +21,20 @@ public class Geolocalization implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="GEO_ID")
+	@JsonProperty("GEO_ID")
 	private int geoId;
 
 	@Column(name="GEO_LATITUDE")
+	@JsonProperty("GEO_LATITUDE")
 	private BigDecimal geoLatitude;
 
 	@Column(name="GEO_LENGHT")
+	@JsonProperty("GEO_LENGHT")
 	private BigDecimal geoLenght;
+	
+	@Column(name="GEO_ADDRESS")
+	@JsonProperty("GEO_ADDRESS")
+	private String geoAddress;
 
 	//bi-directional many-to-one association to Form
 	@OneToMany(mappedBy="geolocalization")
@@ -90,6 +100,14 @@ public class Geolocalization implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getGeoAddress() {
+		return geoAddress;
+	}
+
+	public void setGeoAddress(String geoAddress) {
+		this.geoAddress = geoAddress;
 	}
 
 }

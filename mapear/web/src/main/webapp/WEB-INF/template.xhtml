@@ -19,14 +19,16 @@
         <h:outputScript name="js/perfect-scrollbar.js" library="rio-layout" />
         <h:outputScript name="js/layout.js" library="rio-layout" />
 		<h:outputScript library="primefaces" name="gmap/gmap.js" />
-			<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+			
+			<script
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBkWwk7936J35ACBf9-qjXGUb2MebfqAo"
+			type="text/javascript" />
         <ui:insert name="head" />
+        
     </h:head>
 
     <h:body>
-<!--       	<h:outputScript library="js" name="test.js"  /> -->
-<!--       	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script> -->
-<!-- 		<script src='http://cdnjs.cloudflare.com/ajax/libs/nicescroll/3.5.4/jquery.nicescroll.js'></script> -->
+
         <ui:include src="topbar.xhtml" />
         
         <div id="wrapper">

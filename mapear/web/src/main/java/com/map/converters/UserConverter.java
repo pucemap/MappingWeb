@@ -1,4 +1,3 @@
-
 package com.map.converters;
 
 import java.util.Map;
@@ -10,27 +9,27 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
-import com.map.beans.ChatBean;
-import com.map.beans.UserBean;
-import com.map.entities.Role;
+import com.map.beans.GeoBean;
+import com.map.entities.User;
 
-@FacesConverter("roleConverter")
-public class RoleConverter implements Converter{
+@FacesConverter("userConverter")
+public class UserConverter implements Converter{
 
 	public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
 		if(value != null && value.trim().length() > 0) {
-			Role car = new Role();
+			
+			User car = new User();
 			try {
-				UserBean service = (UserBean)fc.getExternalContext().getSessionMap().get("userBean");
-//				
-//				@SuppressWarnings("static-access")
-//				Map<String, Object> viewMap = fc.getCurrentInstance().getViewRoot().getViewMap();
-//				UserBean service = (UserBean)viewMap.get("chatBean");
 				
-				for(Role aux: service.getRoleList())
+				//ChatBean service = (ChatBean)fc.getExternalContext().getSessionMap().get("chatBean");
+				@SuppressWarnings("static-access")
+				Map<String, Object> viewMap = fc.getCurrentInstance().getViewRoot().getViewMap();
+				GeoBean service = (GeoBean)viewMap.get("geoBean");
+				
+				for(User aux: service.getUserList())
 				{
 					if(!value.equals("Seleccione Uno")){
-						if(aux.getRolId()==Integer.parseInt(value))
+						if(aux.getUsrId()==Integer.parseInt(value))
 							car = aux;
 					}
 					else
@@ -48,10 +47,12 @@ public class RoleConverter implements Converter{
 
 	public String getAsString(FacesContext fc, UIComponent uic, Object object) {
 		if(object != null) {
-			return String.valueOf(((Role) object).getRolId());
+			return String.valueOf(((User) object).getUsrId());
 		}
 		else {
 			return null;
 		}
 	}   
+
+	
 }
